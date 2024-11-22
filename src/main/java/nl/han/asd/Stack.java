@@ -5,11 +5,13 @@ public class Stack <T> implements IStack<T> {
     ILinkedList<T> list;
 
     public Stack() {
+
         list = new LinkedList<>();
     }
 
     @Override
     public void push(T value) {
+
         list.addFirst(value);
     }
 
@@ -22,6 +24,7 @@ public class Stack <T> implements IStack<T> {
 
     @Override
     public T peek() {
+
         return list.getFirst();
     }
 
@@ -32,6 +35,7 @@ public class Stack <T> implements IStack<T> {
 
     @Override
     public boolean isEmpty() {
+
         return list.getSize() == 0;
     }
     @Override

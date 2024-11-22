@@ -14,11 +14,11 @@ public class DynamicArrayPTest {
     @Test
     void testAddOneStrings(){
         // Arrange
-        String vaueToAdd = "Test";
+        String valueToAdd = "Test";
 
         // Act
         var startTime = System.nanoTime();
-        dynamicArray.add(vaueToAdd);
+        dynamicArray.add(valueToAdd);
         var endTime = System.nanoTime();
 
         // Result
@@ -28,7 +28,7 @@ public class DynamicArrayPTest {
     @Test
     void testAddThreeStrings(){
         // Arrange
-        String[] valuesToAdd = {"Reem", "Beem", "Shmeem"};
+        String[] valuesToAdd = {"Reem","Meron", "Beem", "Shmeem"};
 
         // Act
         var startTime = System.nanoTime();
@@ -47,7 +47,7 @@ public class DynamicArrayPTest {
 
         // Act
         var startTime = System.nanoTime();
-        var contains = dynamicArray.contains("Beem");
+        var contains = dynamicArray.contains("Marco");
         var endTime = System.nanoTime();
 
 

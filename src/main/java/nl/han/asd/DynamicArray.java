@@ -65,6 +65,7 @@ public class DynamicArray<E> implements Iterable<E> {
     }
 
     public boolean contains(E element) {
+
         return indexOf(element) != -1;
     }
 
