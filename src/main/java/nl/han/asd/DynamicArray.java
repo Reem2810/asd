@@ -9,6 +9,9 @@ public class DynamicArray<E> implements Iterable<E> {
     private int capacity;
     private int modCount = 0;
 
+    public DynamicArray(){
+        this(1);
+    }
 
     @SuppressWarnings("unchecked")
     public DynamicArray(int initialCapacity) {

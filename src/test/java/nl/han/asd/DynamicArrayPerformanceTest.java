@@ -77,8 +77,6 @@ package nl.han.asd;
             DynamicArray<Integer> dynamicArray = new DynamicArray<>(100_000);
 
             }
-
-
     }
 
 

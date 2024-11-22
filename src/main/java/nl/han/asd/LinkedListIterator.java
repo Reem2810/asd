@@ -12,6 +12,7 @@ public class LinkedListIterator<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
+
         return current != null;
     }
 

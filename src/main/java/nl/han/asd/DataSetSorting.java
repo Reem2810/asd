@@ -10,7 +10,7 @@ public class DataSetSorting {
     public Integer[] lijst_leeg_0;
     public Integer[] lijst_null_1;
     public Integer[] lijst_null_3;
-//    public int [] lijst_onsorteerbaar_3;
+   public Object [] lijst_onsorteerbaar_3;
     public Integer[] lijst_oplopend_10000;
     public Integer[] lijst_willekeurig_10000;
     public Integer[] lijst_willekeurig_3;

@@ -121,7 +121,6 @@ public class LinkedList <T> implements ILinkedList<T>{
         if (pos < 0 || pos >= size) {
             throw new IndexOutOfBoundsException("Position: " + pos + ", Size: " + size);
         }
-
         LinkedListNode<T> current = first;
         int count = 0;
 

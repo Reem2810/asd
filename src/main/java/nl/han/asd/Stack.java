@@ -26,7 +26,16 @@ public class Stack <T> implements IStack<T> {
     }
 
     @Override
+    public T top() {
+        return peek();
+    }
+
+    @Override
     public boolean isEmpty() {
         return list.getSize() == 0;
+    }
+    @Override
+    public int size() {
+        return list.getSize();
     }
 }

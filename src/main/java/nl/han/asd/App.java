@@ -27,18 +27,34 @@ import java.nio.file.Path;
 
         DynamicArray<Float> dynamicFloatArray = new DynamicArray<>(1);
         DynamicArray<Integer> dynamicIntegerArray = new DynamicArray<>(1);
+      //  DynamicArray<Float> dynamicObjectArray = new DynamicArray<>(1);
 
         dynamicIntegerArray.addAll(datasetSorting.lijst_null_1);
         dynamicFloatArray.addAll(datasetSorting.lijst_float_8001);
-        System.out.println(dynamicFloatArray);
+      //  dynamicObjectArray.addAll(datasetSorting.lijst_onsorteerbaar_3);
+
+        System.out.println(" Size of dynamic array " + dynamicFloatArray.size());
+
+        IStack<Integer> stack = new Stack<>();
+
+        stack.push(8);
+        stack.push(9);
+        stack.push(10);
+        System.out.println("Top element (peek): " + stack.peek());
+        stack.pop();
+        System.out.println("Top element (peek): " + stack.peek());
+        System.out.println("Size of stack: " + stack.size());
+        System.out.println("Top element (pop): " + stack.pop());
+        System.out.println("Size of stack: " + stack.size());
 
 
-//        System.out.println("Dataset (lijst_float_8001):");
+//    System.out.println("Dataset (lijst_float_8001):");
+       //
 //        int elementsPerLine = 10;
 //        for (int i = 0; i < dynamicFloatArray.size(); i++) {
 //            System.out.print(dynamicFloatArray.get(i) + " ");
 //            if ((i + 1) % elementsPerLine == 0) {
-//                System.out.println(); // Move to a new line every 10 elements
+//                System.out.println();
 //            }
 //        }
     }
