@@ -27,11 +27,11 @@ import java.nio.file.Path;
 
         DynamicArray<Float> dynamicFloatArray = new DynamicArray<>(1);
         DynamicArray<Integer> dynamicIntegerArray = new DynamicArray<>(1);
-      //  DynamicArray<Float> dynamicObjectArray = new DynamicArray<>(1);
+       DynamicArray<Float> dynamicObjectArray = new DynamicArray<>(1);
 
         dynamicIntegerArray.addAll(datasetSorting.lijst_null_1);
         dynamicFloatArray.addAll(datasetSorting.lijst_float_8001);
-      //  dynamicObjectArray.addAll(datasetSorting.lijst_onsorteerbaar_3);
+      // dynamicObjectArray.addAll(datasetSorting.lijst_onsorteerbaar_3);
 
         System.out.println(" Size of dynamic array " + dynamicFloatArray.size());
 
