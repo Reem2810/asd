@@ -35,7 +35,7 @@ import java.nio.file.Path;
 
         System.out.println(" Size of dynamic array " + dynamicFloatArray.size());
 
-        IStack<Integer> stack = new DynamicStack<>();
+        IStack<Integer> stack = new StackOfDynamicArray<>();
 
         stack.push(8);
         stack.push(9);

@@ -16,18 +16,22 @@ public class DoubleLinkedListNode<T> {
     // Getters and Setters
 
     public T getValue() {
+
         return value;
     }
 
     public void setValue(T value) {
+
         this.value = value;
     }
 
     public DoubleLinkedListNode<T> getNext() {
+
         return next;
     }
 
     public void setNext(DoubleLinkedListNode<T> next) {
+
         this.next = next;
     }
 
@@ -36,6 +40,7 @@ public class DoubleLinkedListNode<T> {
     }
 
     public void setPrev(DoubleLinkedListNode<T> prev) {
+
         this.prev = prev;
     }
 }

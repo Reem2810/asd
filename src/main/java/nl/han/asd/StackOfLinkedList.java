@@ -1,10 +1,10 @@
 package nl.han.asd;
 
-public class Stack <T> implements IStack<T> {
+public class StackOfLinkedList<T> implements IStack<T> {
 
     ILinkedList<T> list;
 
-    public Stack() {
+    public StackOfLinkedList() {
 
         list = new LinkedList<>();
     }

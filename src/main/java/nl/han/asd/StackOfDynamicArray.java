@@ -2,14 +2,14 @@ package nl.han.asd;
 
 import java.util.NoSuchElementException;
 
-public class DynamicStack<T> implements IStack<T> {
+public class StackOfDynamicArray<T> implements IStack<T> {
     private DynamicArray<T> dynamicArray;
 
-    public DynamicStack() {
+    public StackOfDynamicArray() {
         this.dynamicArray = new DynamicArray<>(10);
     }
 
-    public DynamicStack(int initialCapacity) {
+    public StackOfDynamicArray(int initialCapacity) {
         this.dynamicArray = new DynamicArray<>(initialCapacity);
     }
 
