@@ -1,11 +1,11 @@
 package nl.han.asd;
 
 
-public class Deque<T> implements IDeque<T>{
+public class DequeOfDoubleLinkedArray<T> implements IDeque<T>{
     private DoubleLinkedList<T> list;
 
 
-    public Deque() {
+    public DequeOfDoubleLinkedArray() {
 
         this.list = new DoubleLinkedList<>();
     }
@@ -36,7 +36,6 @@ public class Deque<T> implements IDeque<T>{
 
         return list.size();
     }
-@Override
     public boolean isEmpty() {
 
         return list.isEmpty();

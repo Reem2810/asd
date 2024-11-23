@@ -5,35 +5,35 @@ import java.util.List;
 
 
 public class PriorityQueue<T extends Comparable<T>> implements IPriorityQueue<T> {
-    private List<T> heap;
+    private List<T> list;
 
     public PriorityQueue() {
-        heap = new ArrayList<>();
+        list = new ArrayList<>();
     }
 
     @Override
     public void add(T element) {
-        heap.add(element);
-        heapifyUp(heap.size() - 1);
+        list.add(element);
+        heapifyUp(list.size() - 1);
     }
 
     @Override
     public T peek() {
-        if (heap.isEmpty()) {
+        if (list.isEmpty()) {
             return null;
         }
-        return heap.get(0);
+        return list.get(0);
     }
 
     @Override
     public T poll() {
-        if (heap.isEmpty()) {
+        if (list.isEmpty()) {
             return null;
         }
-        T root = heap.get(0);
-        T last = heap.remove(heap.size() - 1);
-        if (!heap.isEmpty()) {
-            heap.set(0, last);
+        T root = list.get(0);
+        T last = list.remove(list.size() - 1);
+        if (!list.isEmpty()) {
+            list.set(0, last);
             heapifyDown(0);
         }
         return root;
@@ -42,11 +42,11 @@ public class PriorityQueue<T extends Comparable<T>> implements IPriorityQueue<T>
     private void heapifyUp(int index) {
         while (index > 0) {
             int parentIdx = (index - 1) / 2;
-            T current = heap.get(index);
-            T parent = heap.get(parentIdx);
+            T current = list.get(index);
+            T parent = list.get(parentIdx);
             if (current.compareTo(parent) < 0) { // Min-Heap
-                heap.set(index, parent);
-                heap.set(parentIdx, current);
+                list.set(index, parent);
+                list.set(parentIdx, current);
                 index = parentIdx;
             } else {
                 break;
@@ -55,24 +55,24 @@ public class PriorityQueue<T extends Comparable<T>> implements IPriorityQueue<T>
     }
 
     private void heapifyDown(int index) {
-        int size = heap.size();
+        int size = list.size();
         while (index < size) {
             int leftIdx = 2 * index + 1;
             int rightIdx = 2 * index + 2;
             int smallestIdx = index;
 
-            if (leftIdx < size && heap.get(leftIdx).compareTo(heap.get(smallestIdx)) < 0) {
+            if (leftIdx < size && list.get(leftIdx).compareTo(list.get(smallestIdx)) < 0) {
                 smallestIdx = leftIdx;
             }
 
-            if (rightIdx < size && heap.get(rightIdx).compareTo(heap.get(smallestIdx)) < 0) {
+            if (rightIdx < size && list.get(rightIdx).compareTo(list.get(smallestIdx)) < 0) {
                 smallestIdx = rightIdx;
             }
 
             if (smallestIdx != index) {
-                T temp = heap.get(index);
-                heap.set(index, heap.get(smallestIdx));
-                heap.set(smallestIdx, temp);
+                T temp = list.get(index);
+                list.set(index, list.get(smallestIdx));
+                list.set(smallestIdx, temp);
                 index = smallestIdx;
             } else {
                 break;
@@ -81,10 +81,10 @@ public class PriorityQueue<T extends Comparable<T>> implements IPriorityQueue<T>
     }
 
     public int size() {
-        return heap.size();
+        return list.size();
     }
 
     public boolean isEmpty() {
-        return heap.isEmpty();
+        return list.isEmpty();
     }
 }

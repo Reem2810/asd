@@ -3,7 +3,7 @@ package nl.han.asd;
 public class StackOfArrayList<T> implements IStack<T>{
     @Override
     public void push(T value) {
-        
+
     }
 
     @Override

@@ -11,5 +11,4 @@ public interface IDeque<T> {
 
     int size();
 
-    boolean isEmpty();
 }
