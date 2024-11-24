@@ -3,11 +3,10 @@ package nl.han.asd;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.ConcurrentModificationException;
 
 public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
-    private DoubleLinkedListNode<T> head;
-    private DoubleLinkedListNode<T> tail;
+    private IDoubleLinkedListNode<T> head;
+    private IDoubleLinkedListNode<T> tail;
     private int size;
     private int modCount; // For fail-fast iterators
 
@@ -23,14 +22,13 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
         addLast(element);
     }
 
-
     @Override
     public void addFirst(T element) {
         if (element == null) {
             throw new IllegalArgumentException("Null values are not allowed in the list.");
         }
 
-        DoubleLinkedListNode<T> newNode = new DoubleLinkedListNode<>(element);
+        IDoubleLinkedListNode<T> newNode = new DoubleLinkedListNode<>(element);
 
         if (isEmpty()) {
             head = newNode;
@@ -45,14 +43,13 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
         modCount++;
     }
 
-
     @Override
     public void addLast(T element) {
         if (element == null) {
             throw new IllegalArgumentException("Null values are not allowed in the list.");
         }
 
-        DoubleLinkedListNode<T> newNode = new DoubleLinkedListNode<>(element);
+        IDoubleLinkedListNode<T> newNode = new DoubleLinkedListNode<>(element);
 
         if (isEmpty()) {
             head = newNode;
@@ -67,6 +64,14 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
         modCount++;
     }
 
+    public void addAll(T[] elements) {
+        if (elements == null) {
+            throw new IllegalArgumentException("Input array cannot be null.");
+        }
+        for (T element : elements) {
+            addLast(element);
+        }
+    }
     @Override
     public T removeFirst() {
         if (isEmpty()) {
@@ -109,11 +114,10 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
         return value;
     }
 
-
     @Override
     public T get(int index) {
         checkIndex(index);
-        DoubleLinkedListNode<T> current = getNodeAt(index);
+        IDoubleLinkedListNode<T> current = getNodeAt(index);
         return current.getValue();
     }
 
@@ -123,7 +127,7 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
             throw new IllegalArgumentException("Null values are not allowed in the list.");
         }
         checkIndex(index);
-        DoubleLinkedListNode<T> current = getNodeAt(index);
+        IDoubleLinkedListNode<T> current = getNodeAt(index);
         current.setValue(element);
         modCount++;
     }
@@ -131,7 +135,7 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
     @Override
     public T remove(int index) {
         checkIndex(index);
-        DoubleLinkedListNode<T> toRemove = getNodeAt(index);
+        IDoubleLinkedListNode<T> toRemove = getNodeAt(index);
         T removedValue = toRemove.getValue();
 
         if (toRemove == head && toRemove == tail) { // Only one element
@@ -144,8 +148,8 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
             tail = tail.getPrev();
             tail.setNext(null);
         } else { // Removing from middle
-            DoubleLinkedListNode<T> prevNode = toRemove.getPrev();
-            DoubleLinkedListNode<T> nextNode = toRemove.getNext();
+            IDoubleLinkedListNode<T> prevNode = toRemove.getPrev();
+            IDoubleLinkedListNode<T> nextNode = toRemove.getNext();
             prevNode.setNext(nextNode);
             nextNode.setPrev(prevNode);
         }
@@ -173,7 +177,7 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
     @Override
     public int indexOf(T element) {
         int index = 0;
-        for (DoubleLinkedListNode<T> current = head; current != null; current = current.getNext()) {
+        for (IDoubleLinkedListNode<T> current = head; current != null; current = current.getNext()) {
             if ((element == null && current.getValue() == null) ||
                     (element != null && element.equals(current.getValue()))) {
                 return index;
@@ -182,7 +186,6 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
         }
         return -1;
     }
-
 
     @Override
     public int size() {
@@ -196,9 +199,9 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
 
     @Override
     public void clear() {
-        DoubleLinkedListNode<T> current = head;
+        IDoubleLinkedListNode<T> current = head;
         while (current != null) {
-            DoubleLinkedListNode<T> next = current.getNext();
+            IDoubleLinkedListNode<T> next = current.getNext();
             current.setPrev(null);
             current.setNext(null);
             current.setValue(null);
@@ -210,41 +213,16 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
         modCount++;
     }
 
-
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<>() {
-            private DoubleLinkedListNode<T> current = head;
-            private final int expectedModCount = modCount;
-
-            @Override
-            public boolean hasNext() {
-                if (expectedModCount != modCount) {
-                    throw new ConcurrentModificationException("List modified during iteration.");
-                }
-                return current != null;
-            }
-
-            @Override
-            public T next() {
-                if (expectedModCount != modCount) {
-                    throw new ConcurrentModificationException("List modified during iteration.");
-                }
-                if (current == null) {
-                    throw new NoSuchElementException("No more elements to iterate.");
-                }
-                T value = current.getValue();
-                current = current.getNext();
-                return value;
-            }
-        };
+        return new DoubleLinkedListIterator<>(this, head);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
-        DoubleLinkedListNode<T> current = head;
+        IDoubleLinkedListNode<T> current = head;
         while (current != null) {
             sb.append(current.getValue());
             if (current.getNext() != null) {
@@ -256,16 +234,16 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
         return sb.toString();
     }
 
-    private DoubleLinkedListNode<T> getNodeAt(int index) {
+    private IDoubleLinkedListNode<T> getNodeAt(int index) {
         // Optimize traversal by starting from head or tail based on index
         if (index < size / 2) {
-            DoubleLinkedListNode<T> current = head;
+            IDoubleLinkedListNode<T> current = head;
             for (int i = 0; i < index; i++) {
                 current = current.getNext();
             }
             return current;
         } else {
-            DoubleLinkedListNode<T> current = tail;
+            IDoubleLinkedListNode<T> current = tail;
             for (int i = size - 1; i > index; i--) {
                 current = current.getPrev();
             }
@@ -277,5 +255,10 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
+    }
+
+
+    protected int getModCount() {
+        return modCount;
     }
 }

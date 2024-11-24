@@ -1,11 +1,10 @@
+// DoubleLinkedListNode.java
 package nl.han.asd;
 
-
-public class DoubleLinkedListNode<T> {
+public class DoubleLinkedListNode<T> implements IDoubleLinkedListNode<T> {
     private T value;
-    private DoubleLinkedListNode<T> next;
-    private DoubleLinkedListNode<T> prev;
-
+    private IDoubleLinkedListNode<T> next;
+    private IDoubleLinkedListNode<T> prev;
 
     public DoubleLinkedListNode(T value) {
         this.value = value;
@@ -13,34 +12,33 @@ public class DoubleLinkedListNode<T> {
         this.prev = null;
     }
 
-    // Getters and Setters
-
+    @Override
     public T getValue() {
-
         return value;
     }
 
+    @Override
     public void setValue(T value) {
-
         this.value = value;
     }
 
-    public DoubleLinkedListNode<T> getNext() {
-
+    @Override
+    public IDoubleLinkedListNode<T> getNext() {
         return next;
     }
 
-    public void setNext(DoubleLinkedListNode<T> next) {
-
+    @Override
+    public void setNext(IDoubleLinkedListNode<T> next) {
         this.next = next;
     }
 
-    public DoubleLinkedListNode<T> getPrev() {
+    @Override
+    public IDoubleLinkedListNode<T> getPrev() {
         return prev;
     }
 
-    public void setPrev(DoubleLinkedListNode<T> prev) {
-
+    @Override
+    public void setPrev(IDoubleLinkedListNode<T> prev) {
         this.prev = prev;
     }
 }
