@@ -1,4 +1,4 @@
-import nl.han.asd.IPriorityQueue;
+package nl.han.asd;
 
 import java.util.ArrayList;
 import java.util.Iterator;

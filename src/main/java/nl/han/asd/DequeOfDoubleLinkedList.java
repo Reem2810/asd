@@ -1,13 +1,13 @@
-// DequeOfDoubleLinkedArray.java
+// DequeOfDoubleLinkedList.java
 package nl.han.asd;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class DequeOfDoubleLinkedArray<T> implements IDeque<T> {
+public class DequeOfDoubleLinkedList<T> implements IDeque<T> {
     private DoubleLinkedList<T> list;
 
-    public DequeOfDoubleLinkedArray() {
+    public DequeOfDoubleLinkedList() {
         this.list = new DoubleLinkedList<>();
     }
 

@@ -1,4 +1,4 @@
-// DequePerformanceTest.java
+
 package nl.han.asd;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,12 +13,11 @@ public class DequePerformanceTest {
     private IDeque<String> dequeCircularArray;
     private IDeque<String> dequeDoubleLinkedArray;
     private static final int ELEMENT_COUNT = 100_000; // Number of elements for bulk operations
-    private static final int MIXED_OPERATIONS = 50_000; // Number of mixed operations
 
     @BeforeEach
     void setup() {
         dequeCircularArray = new DequeOfCircularArray<>();
-        dequeDoubleLinkedArray = new DequeOfDoubleLinkedArray<>();
+        dequeDoubleLinkedArray = new DequeOfDoubleLinkedList<>();
     }
 
     // ===================== InsertLeft Tests =====================
@@ -171,6 +170,7 @@ public class DequePerformanceTest {
         for (int i = 0; i < ELEMENT_COUNT; i++) {
             String removed = dequeCircularArray.DeleteLeft();
             // Optionally, verify the removed element
+            // assertEquals("Element " + (ELEMENT_COUNT - 1 - i), removed);
         }
         long endTime = System.nanoTime();
 
@@ -209,6 +209,7 @@ public class DequePerformanceTest {
         for (int i = 0; i < ELEMENT_COUNT; i++) {
             String removed = dequeDoubleLinkedArray.DeleteLeft();
             // Optionally, verify the removed element
+            // assertEquals("Element " + (ELEMENT_COUNT - 1 - i), removed);
         }
         long endTime = System.nanoTime();
 
@@ -249,6 +250,7 @@ public class DequePerformanceTest {
         for (int i = 0; i < ELEMENT_COUNT; i++) {
             String removed = dequeCircularArray.DeleteRight();
             // Optionally, verify the removed element
+            // assertEquals("Element " + (ELEMENT_COUNT - 1 - i), removed);
         }
         long endTime = System.nanoTime();
 
@@ -287,6 +289,7 @@ public class DequePerformanceTest {
         for (int i = 0; i < ELEMENT_COUNT; i++) {
             String removed = dequeDoubleLinkedArray.DeleteRight();
             // Optionally, verify the removed element
+            // assertEquals("Element " + (ELEMENT_COUNT - 1 - i), removed);
         }
         long endTime = System.nanoTime();
 
@@ -390,7 +393,7 @@ public class DequePerformanceTest {
     @Test
     void testMixedOperations_DequeOfCircularArray() {
         long startTime = System.nanoTime();
-        for (int i = 0; i < MIXED_OPERATIONS; i++) {
+        for (int i = 0; i < ELEMENT_COUNT; i++) {
             dequeCircularArray.InsertRight("MixedPush " + i);
             try {
                 dequeCircularArray.DeleteLeft();
@@ -401,16 +404,16 @@ public class DequePerformanceTest {
         long endTime = System.nanoTime();
 
         long durationMs = (endTime - startTime) / 1_000_000;
-        System.out.println("DequeOfCircularArray Mixed Operations (" + MIXED_OPERATIONS + ") time: " + durationMs + " ms | Size: " + dequeCircularArray.size());
+        System.out.println("DequeOfCircularArray Mixed Operations (" + ELEMENT_COUNT + ") time: " + durationMs + " ms | Size: " + dequeCircularArray.size());
 
-        // The size should be 0 or MIXED_OPERATIONS if deletes failed
-        assertTrue(dequeCircularArray.size() <= MIXED_OPERATIONS, "Deque size should be manageable after mixed operations.");
+        // The size should be 0 or ELEMENT_COUNT if deletes failed
+        assertTrue(dequeCircularArray.size() <= ELEMENT_COUNT, "Deque size should be manageable after mixed operations.");
     }
 
     @Test
     void testMixedOperations_DequeOfDoubleLinkedArray() {
         long startTime = System.nanoTime();
-        for (int i = 0; i < MIXED_OPERATIONS; i++) {
+        for (int i = 0; i < ELEMENT_COUNT; i++) {
             dequeDoubleLinkedArray.InsertLeft("MixedPush " + i);
             try {
                 dequeDoubleLinkedArray.DeleteRight();
@@ -421,9 +424,9 @@ public class DequePerformanceTest {
         long endTime = System.nanoTime();
 
         long durationMs = (endTime - startTime) / 1_000_000;
-        System.out.println("DequeOfDoubleLinkedArray Mixed Operations (" + MIXED_OPERATIONS + ") time: " + durationMs + " ms | Size: " + dequeDoubleLinkedArray.size());
+        System.out.println("DequeOfDoubleLinkedArray Mixed Operations (" + ELEMENT_COUNT + ") time: " + durationMs + " ms | Size: " + dequeDoubleLinkedArray.size());
 
-        // The size should be 0 or MIXED_OPERATIONS if deletes failed
-        assertTrue(dequeDoubleLinkedArray.size() <= MIXED_OPERATIONS, "Deque size should be manageable after mixed operations.");
+        // The size should be 0 or ELEMENT_COUNT if deletes failed
+        assertTrue(dequeDoubleLinkedArray.size() <= ELEMENT_COUNT, "Deque size should be manageable after mixed operations.");
     }
 }

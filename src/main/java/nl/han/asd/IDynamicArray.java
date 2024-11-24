@@ -15,5 +15,5 @@ public interface IDynamicArray<E> extends Iterable<E> {
     int size();
     boolean isEmpty();
     void clear();
-    Iterator<E> iterator();
+    Iterator<E> iterator(); // Optional, as Iterable already includes this
 }

@@ -1,4 +1,4 @@
-// SingleLinkedListNode.java
+
 package nl.han.asd;
 
 public class SingleLinkedListNode<T> implements ISingleLinkedListNode<T> {

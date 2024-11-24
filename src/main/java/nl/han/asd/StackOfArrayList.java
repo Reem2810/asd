@@ -1,4 +1,4 @@
-// StackOfArrayList.java
+
 package nl.han.asd;
 
 import java.util.ArrayList;

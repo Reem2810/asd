@@ -1,4 +1,4 @@
-// StackPerformanceTest.java
+
 package nl.han.asd;
 
 import org.junit.jupiter.api.BeforeEach;

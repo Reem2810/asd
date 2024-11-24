@@ -3,21 +3,18 @@ package nl.han.asd;
 
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.ConcurrentModificationException;
-import java.util.NoSuchElementException;
 
 public class DynamicArray<E> implements IDynamicArray<E> {
     private static final int DEFAULT_CAPACITY = 8;
     private E[] elements;
     private int size;
     private int capacity;
-    private int modCount = 0; // For fail-fast iterators
+    private int modCount = 0;
 
     @SuppressWarnings("unchecked")
     public DynamicArray() {
         this(DEFAULT_CAPACITY);
     }
-
 
     @SuppressWarnings("unchecked")
     public DynamicArray(int initialCapacity) {
@@ -29,14 +26,12 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         this.size = 0;
     }
 
-
     @Override
     public void add(E element) {
         ensureCapacity();
         elements[size++] = element;
         modCount++;
     }
-
 
     @Override
     public void addAll(E[] newElements) {
@@ -58,12 +53,9 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         elements = Arrays.copyOf(elements, capacity);
         modCount++;
 
-
         System.arraycopy(newElements, 0, elements, size, numNew);
         size += numNew;
     }
-
-
 
     @Override
     public E get(int index) {
@@ -71,14 +63,12 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         return elements[index];
     }
 
-
     @Override
     public void set(int index, E element) {
         checkIndex(index);
         elements[index] = element;
         modCount++;
     }
-
 
     @Override
     public E remove(int index) {
@@ -92,7 +82,6 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         modCount++;
         return removedElement;
     }
-
 
     @Override
     public boolean remove(E element) {
@@ -127,12 +116,10 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         return -1;
     }
 
-
     @Override
     public int size() {
         return size;
     }
-
 
     @Override
     public boolean isEmpty() {
@@ -146,7 +133,6 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         modCount++;
     }
 
-
     public void trimToSize() {
         if (size < capacity / 2) {
             int newCapacity = size + (int) Math.ceil(size * 0.25);
@@ -155,7 +141,6 @@ public class DynamicArray<E> implements IDynamicArray<E> {
             modCount++;
         }
     }
-
 
     @SuppressWarnings("unchecked")
     private void ensureCapacity() {
@@ -166,7 +151,6 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         }
     }
 
-
     private void checkIndex(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException(
@@ -175,36 +159,10 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         }
     }
 
-
     @Override
     public Iterator<E> iterator() {
-        return new Iterator<>() {
-            private int currentIndex = 0;
-            private final int expectedModCount = modCount;
-
-            @Override
-            public boolean hasNext() {
-                checkForModification();
-                return currentIndex < size;
-            }
-
-            @Override
-            public E next() {
-                checkForModification();
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
-                }
-                return elements[currentIndex++];
-            }
-
-            private void checkForModification() {
-                if (modCount != expectedModCount) {
-                    throw new ConcurrentModificationException();
-                }
-            }
-        };
+        return new DynamicArrayIterator<>(elements, size, modCount);
     }
-
 
     @Override
     public String toString() {

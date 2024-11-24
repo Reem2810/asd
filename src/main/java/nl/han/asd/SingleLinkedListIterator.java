@@ -1,4 +1,4 @@
-// SingleLinkedListIterator.java
+
 package nl.han.asd;
 
 import java.util.Iterator;
