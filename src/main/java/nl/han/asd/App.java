@@ -32,13 +32,18 @@ import java.util.Iterator;
 
         DynamicArray<Float> dynamicFloatArray = new DynamicArray<>(1);
         DynamicArray<Integer> dynamicIntegerArray = new DynamicArray<>(1);
-       DynamicArray<Float> dynamicObjectArray = new DynamicArray<>(1);
+        DynamicArray<Float> dynamicMixedArray = new DynamicArray<>(1);
 
         dynamicIntegerArray.addAll(datasetSorting.lijst_null_1);
         dynamicFloatArray.addAll(datasetSorting.lijst_float_8001);
-      // dynamicObjectArray.addAll(datasetSorting.lijst_onsorteerbaar_3);
+      // dynamicMixedArray.addAll(datasetSorting.lijst_onsorteerbaar_3);
 
-        System.out.println(" Size of dynamic array " + dynamicFloatArray.size());
+        System.out.println(" Test contains " + dynamicIntegerArray.contains(4));
+        dynamicIntegerArray.add(4); // Perform the add operation
+        System.out.println("Test contains after adding the element."+ dynamicIntegerArray.contains(4));
+        System.out.println(" Size of dynamic array " + dynamicIntegerArray.size());
+        System.out.println(dynamicIntegerArray.toString());
+
 
         System.out.println("*******************************");
         System.out.println("testing Stack against Marco's data ");
