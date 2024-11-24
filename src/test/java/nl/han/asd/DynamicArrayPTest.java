@@ -50,13 +50,30 @@ public class DynamicArrayPTest {
 
         // Act
         var startTime = System.nanoTime();
-        boolean contains = dynamicArray.contains("Mari e monte");
+        boolean contains = dynamicArray.contains("Marinara");
         var endTime = System.nanoTime();
 
         // Result
         System.out.println("Time to check contains (existing element): " + (endTime - startTime) + " nanoseconds");
         System.out.println("Contains 'Mari e monte': " + contains);
     }
+
+    @Test
+    void testContainsExistingElementAtEarlierElement(){
+        // Arrange
+        String[] valuesToAdd = {"Margherita", "Mari e monte", "Marinara"};
+        dynamicArray.addAll(valuesToAdd);
+
+        // Act
+        var startTime = System.nanoTime();
+        boolean contains = dynamicArray.contains("Margherita");
+        var endTime = System.nanoTime();
+
+        // Result
+        System.out.println("Time to check contains (existing element at earlier element): " + (endTime - startTime) + " nanoseconds");
+        System.out.println("Contains 'Mari e monte': " + contains);
+    }
+
 
     @Test
     void testContainsNonExistingElement(){
@@ -82,7 +99,23 @@ public class DynamicArrayPTest {
 
         // Act
         var startTime = System.nanoTime();
-        String element = dynamicArray.get(2);
+        String element = dynamicArray.get(3);
+        var endTime = System.nanoTime();
+
+        // Result
+        System.out.println("Time to get element at index 2: " + (endTime - startTime) + " nanoseconds");
+        System.out.println("Element at index 2: " + element);
+    }
+
+    @Test
+    void testGetEarlierElement(){
+        // Arrange
+        String[] valuesToAdd = {"Margherita", "Mari e monte", "Marinara", "Four-seasons"};
+        dynamicArray.addAll(valuesToAdd);
+
+        // Act
+        var startTime = System.nanoTime();
+        String element = dynamicArray.get(0);
         var endTime = System.nanoTime();
 
         // Result
@@ -177,6 +210,22 @@ public class DynamicArrayPTest {
     void testSize(){
         // Arrange
         String[] valuesToAdd = {"Margherita", "Mari e monte", "Marinara"};
+        dynamicArray.addAll(valuesToAdd);
+
+        // Act
+        var startTime = System.nanoTime();
+        int currentSize = dynamicArray.size();
+        var endTime = System.nanoTime();
+
+        // Result
+        System.out.println("Time to get size: " + (endTime - startTime) + " nanoseconds");
+        System.out.println("Current size: " + currentSize);
+    }
+
+    @Test
+    void testSizeBiggerArray(){
+        // Arrange
+        String[] valuesToAdd = {"Margherita", "Mari e monte", "Marinara","Margherita", "Mari e monte", "Marinara","Margherita", "Mari e monte", "Marinara"};
         dynamicArray.addAll(valuesToAdd);
 
         // Act

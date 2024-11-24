@@ -13,20 +13,12 @@ public class DynamicArray<E> implements IDynamicArray<E> {
     private int capacity;
     private int modCount = 0; // For fail-fast iterators
 
-    /**
-     * Constructs an empty dynamic array with the default initial capacity.
-     */
     @SuppressWarnings("unchecked")
     public DynamicArray() {
         this(DEFAULT_CAPACITY);
     }
 
-    /**
-     * Constructs an empty dynamic array with the specified initial capacity.
-     *
-     * @param initialCapacity the initial capacity of the dynamic array
-     * @throws IllegalArgumentException if the initial capacity is less than or equal to zero
-     */
+
     @SuppressWarnings("unchecked")
     public DynamicArray(int initialCapacity) {
         if (initialCapacity <= 0) {
@@ -37,11 +29,7 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         this.size = 0;
     }
 
-    /**
-     * Adds an element to the end of the dynamic array.
-     *
-     * @param element the element to add
-     */
+
     @Override
     public void add(E element) {
         ensureCapacity();
@@ -49,38 +37,41 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         modCount++;
     }
 
-    /**
-     * Adds all elements from the provided array to the end of the dynamic array.
-     *
-     * @param newElements the array of elements to add
-     */
+
     @Override
     public void addAll(E[] newElements) {
-        for (E element : newElements) {
-            add(element);
+        if (newElements == null) {
+            throw new IllegalArgumentException("Input array cannot be null.");
         }
+        int numNew = newElements.length;
+        if (numNew == 0) {
+            return; // Nothing to add
+        }
+        // Double capacity until it can accommodate all new elements
+        while (size + numNew > capacity) {
+            if (capacity > (Integer.MAX_VALUE / 2)) {
+                throw new OutOfMemoryError("Cannot increase capacity beyond Integer.MAX_VALUE");
+            }
+            capacity *= 2;
+        }
+        // Resize the underlying array once
+        elements = Arrays.copyOf(elements, capacity);
+        modCount++;
+
+        // Copy all new elements
+        System.arraycopy(newElements, 0, elements, size, numNew);
+        size += numNew;
     }
 
-    /**
-     * Retrieves the element at the specified index.
-     *
-     * @param index the index of the element to retrieve
-     * @return the element at the specified index
-     * @throws IndexOutOfBoundsException if the index is out of range
-     */
+
+
     @Override
     public E get(int index) {
         checkIndex(index);
         return elements[index];
     }
 
-    /**
-     * Replaces the element at the specified index with the provided element.
-     *
-     * @param index   the index of the element to replace
-     * @param element the element to be stored at the specified index
-     * @throws IndexOutOfBoundsException if the index is out of range
-     */
+
     @Override
     public void set(int index, E element) {
         checkIndex(index);
@@ -88,13 +79,7 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         modCount++;
     }
 
-    /**
-     * Removes the element at the specified index and returns it.
-     *
-     * @param index the index of the element to remove
-     * @return the removed element
-     * @throws IndexOutOfBoundsException if the index is out of range
-     */
+
     @Override
     public E remove(int index) {
         checkIndex(index);
@@ -108,12 +93,7 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         return removedElement;
     }
 
-    /**
-     * Removes the first occurrence of the specified element from the dynamic array.
-     *
-     * @param element the element to remove
-     * @return true if the element was found and removed, false otherwise
-     */
+
     @Override
     public boolean remove(E element) {
         int index = indexOf(element);
@@ -124,12 +104,6 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         return false;
     }
 
-    /**
-     * Checks if the dynamic array contains the specified element.
-     *
-     * @param element the element to check for
-     * @return true if the element exists in the dynamic array, false otherwise
-     */
     @Override
     public boolean contains(E element) {
         return indexOf(element) != -1;
