@@ -3,10 +3,10 @@ package nl.han.asd;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedListIterator<T> implements Iterator<T> {
-    private LinkedListNode<T> current;
+public class SingleLinkedListIterator<T> implements Iterator<T> {
+    private SingleLinkedListNode<T> current;
 
-    public LinkedListIterator(LinkedListNode<T> first) {
+    public SingleLinkedListIterator(SingleLinkedListNode<T> first) {
         current = first;
     }
 
@@ -20,7 +20,7 @@ public class LinkedListIterator<T> implements Iterator<T> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        LinkedListNode<T> tempo = current;
+        SingleLinkedListNode<T> tempo = current;
         current = current.getNext();
         return tempo.getValue();
     }

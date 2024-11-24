@@ -1,6 +1,6 @@
 package nl.han.asd;
 
-public interface ILinkedList <T> extends Iterable<T>{
+public interface ISingleLinkedList<T> extends Iterable<T>{
 
     void addFirst(T value);
 

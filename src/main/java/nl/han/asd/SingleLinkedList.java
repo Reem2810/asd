@@ -3,14 +3,14 @@ package nl.han.asd;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedList <T> implements ILinkedList<T>{
-    private LinkedListNode<T> first = null;
-    private LinkedListNode<T> tail = null; // Tail pointer
+public class SingleLinkedList<T> implements ISingleLinkedList<T> {
+    private SingleLinkedListNode<T> first = null;
+    private SingleLinkedListNode<T> tail = null; // Tail pointer
     private int size = 0; // Size counter
 
     @Override
     public void addFirst(T value) {
-        LinkedListNode<T> newNode = new LinkedListNode<>(value);
+        SingleLinkedListNode<T> newNode = new SingleLinkedListNode<>(value);
         newNode.setNext(first);
         first = newNode;
 
@@ -23,7 +23,7 @@ public class LinkedList <T> implements ILinkedList<T>{
 
     @Override
     public void addLast(T value) {
-        LinkedListNode<T> newNode = new LinkedListNode<>(value);
+        SingleLinkedListNode<T> newNode = new SingleLinkedListNode<>(value);
         if (first == null) { // List is empty
             first = newNode;
             tail = newNode;
@@ -48,7 +48,7 @@ public class LinkedList <T> implements ILinkedList<T>{
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
 
-        LinkedListNode<T> newNode = new LinkedListNode<>(value);
+        SingleLinkedListNode<T> newNode = new SingleLinkedListNode<>(value);
 
         // Inserting at the beginning
         if (index == 0) {
@@ -61,7 +61,7 @@ public class LinkedList <T> implements ILinkedList<T>{
             return;
         }
 
-        LinkedListNode<T> current = first;
+        SingleLinkedListNode<T> current = first;
         int count = 0;
 
         // Traverse to the node just before the desired index
@@ -95,7 +95,7 @@ public class LinkedList <T> implements ILinkedList<T>{
             return;
         }
 
-        LinkedListNode<T> current = first;
+        SingleLinkedListNode<T> current = first;
         int count = 0;
 
         // Traverse to the node just before the one to remove
@@ -105,7 +105,7 @@ public class LinkedList <T> implements ILinkedList<T>{
         }
 
         // Remove the node
-        LinkedListNode<T> toRemove = current.getNext();
+        SingleLinkedListNode<T> toRemove = current.getNext();
         current.setNext(toRemove.getNext());
 
         // If removing the last node, update the tail
@@ -121,7 +121,7 @@ public class LinkedList <T> implements ILinkedList<T>{
         if (pos < 0 || pos >= size) {
             throw new IndexOutOfBoundsException("Position: " + pos + ", Size: " + size);
         }
-        LinkedListNode<T> current = first;
+        SingleLinkedListNode<T> current = first;
         int count = 0;
 
         while (count < pos) {
@@ -162,6 +162,6 @@ public class LinkedList <T> implements ILinkedList<T>{
 
     @Override
     public Iterator<T> iterator() {
-        return new LinkedListIterator<>(first);
+        return new SingleLinkedListIterator<>(first);
     }
 }

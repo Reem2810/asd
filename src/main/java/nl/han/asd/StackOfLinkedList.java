@@ -2,11 +2,11 @@ package nl.han.asd;
 
 public class StackOfLinkedList<T> implements IStack<T> {
 
-    ILinkedList<T> list;
+    ISingleLinkedList<T> list;
 
     public StackOfLinkedList() {
 
-        list = new LinkedList<>();
+        list = new SingleLinkedList<>();
     }
 
     @Override
