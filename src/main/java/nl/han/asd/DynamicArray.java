@@ -47,18 +47,18 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         if (numNew == 0) {
             return; // Nothing to add
         }
-        // Double capacity until it can accommodate all new elements
+
         while (size + numNew > capacity) {
             if (capacity > (Integer.MAX_VALUE / 2)) {
                 throw new OutOfMemoryError("Cannot increase capacity beyond Integer.MAX_VALUE");
             }
             capacity *= 2;
         }
-        // Resize the underlying array once
+
         elements = Arrays.copyOf(elements, capacity);
         modCount++;
 
-        // Copy all new elements
+
         System.arraycopy(newElements, 0, elements, size, numNew);
         size += numNew;
     }
@@ -109,12 +109,6 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         return indexOf(element) != -1;
     }
 
-    /**
-     * Returns the index of the first occurrence of the specified element in the dynamic array.
-     *
-     * @param element the element to search for
-     * @return the index of the element, or -1 if not found
-     */
     @Override
     public int indexOf(E element) {
         if (element == null) {
@@ -133,29 +127,17 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         return -1;
     }
 
-    /**
-     * Returns the number of elements in the dynamic array.
-     *
-     * @return the size of the dynamic array
-     */
+
     @Override
     public int size() {
         return size;
     }
 
-    /**
-     * Checks whether the dynamic array is empty.
-     *
-     * @return true if the dynamic array contains no elements, false otherwise
-     */
+
     @Override
     public boolean isEmpty() {
         return size == 0;
     }
-
-    /**
-     * Removes all elements from the dynamic array.
-     */
 
     @Override
     public void clear() {
@@ -164,10 +146,7 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         modCount++;
     }
 
-    /**
-     * Trims the capacity of the dynamic array to be the current size.
-     * Useful for optimizing memory usage after a large number of removals.
-     */
+
     public void trimToSize() {
         if (size < capacity / 2) {
             int newCapacity = size + (int) Math.ceil(size * 0.25);
@@ -177,10 +156,7 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         }
     }
 
-    /**
-     * Ensures that the underlying array has sufficient capacity to add new elements.
-     * If the array is full, it resizes by doubling its current capacity.
-     */
+
     @SuppressWarnings("unchecked")
     private void ensureCapacity() {
         if (size == capacity) {
@@ -190,12 +166,7 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         }
     }
 
-    /**
-     * Checks if the given index is within the bounds of the dynamic array.
-     *
-     * @param index the index to check
-     * @throws IndexOutOfBoundsException if the index is out of range
-     */
+
     private void checkIndex(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException(
@@ -204,12 +175,7 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         }
     }
 
-    /**
-     * Returns an iterator over the elements in the dynamic array in proper sequence.
-     * The iterator is fail-fast, throwing a ConcurrentModificationException if the dynamic array is modified during iteration.
-     *
-     * @return an iterator over the elements in the dynamic array
-     */
+
     @Override
     public Iterator<E> iterator() {
         return new Iterator<>() {
@@ -239,11 +205,7 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         };
     }
 
-    /**
-     * Returns a string representation of the dynamic array.
-     *
-     * @return a string containing all elements in the dynamic array
-     */
+
     @Override
     public String toString() {
         return Arrays.toString(Arrays.copyOf(elements, size));

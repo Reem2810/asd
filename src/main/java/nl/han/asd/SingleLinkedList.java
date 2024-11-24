@@ -3,13 +3,12 @@ package nl.han.asd;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.ConcurrentModificationException;
 
 public class SingleLinkedList<T> implements ISingleLinkedList<T> {
     private ISingleLinkedListNode<T> first = null;
     private ISingleLinkedListNode<T> tail = null; // Tail pointer
-    private int size = 0; // Size counter
-    private int modCount = 0; // Modification count
+    private int size = 0;
+    private int modCount = 0;
 
     @Override
     public void addFirst(T value) {
@@ -20,7 +19,7 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
         newNode.setNext(first);
         first = newNode;
 
-        if (tail == null) { // List was empty before adding
+        if (tail == null) {
             tail = newNode;
         }
         size++;
@@ -33,7 +32,7 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
             throw new IllegalArgumentException("Null values are not allowed in the list.");
         }
         SingleLinkedListNode<T> newNode = new SingleLinkedListNode<>(value);
-        if (first == null) { // List is empty
+        if (first == null) {
             first = newNode;
             tail = newNode;
         } else {
@@ -57,18 +56,18 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
         if (value == null) {
             throw new IllegalArgumentException("Null values are not allowed in the list.");
         }
-        // Validate the index
+
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
 
         SingleLinkedListNode<T> newNode = new SingleLinkedListNode<>(value);
 
-        // Inserting at the beginning
+
         if (index == 0) {
             newNode.setNext(first);
             first = newNode;
-            if (tail == null) { // Update tail if the list was empty
+            if (tail == null) {
                 tail = newNode;
             }
             size++;
@@ -79,17 +78,14 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
         ISingleLinkedListNode<T> current = first;
         int count = 0;
 
-        // Traverse to the node just before the desired index
         while (count < index - 1) {
             current = current.getNext();
             count++;
         }
 
-        // Insert the new node
         newNode.setNext(current.getNext());
         current.setNext(newNode);
 
-        // If inserted at the end, update the tail
         if (current == tail) {
             tail = newNode;
         }
@@ -105,7 +101,6 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
             throw new IndexOutOfBoundsException("Position: " + pos + ", Size: " + size);
         }
 
-        // Removing the first element
         if (pos == 0) {
             removeFirst();
             return;
@@ -114,17 +109,14 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
         ISingleLinkedListNode<T> current = first;
         int count = 0;
 
-        // Traverse to the node just before the one to remove
         while (count < pos - 1) {
             current = current.getNext();
             count++;
         }
 
-        // Remove the node
         ISingleLinkedListNode<T> toRemove = current.getNext();
         current.setNext(toRemove.getNext());
 
-        // If removing the last node, update the tail
         if (toRemove == tail) {
             tail = current;
         }
@@ -157,7 +149,7 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
 
         first = first.getNext();
 
-        if (first == null) { // List became empty after removal
+        if (first == null) {
             tail = null;
         }
 

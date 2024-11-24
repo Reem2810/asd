@@ -27,7 +27,7 @@ public class StackOfDynamicArray<T> implements IStack<T> {
         if (isEmpty()) {
             throw new NoSuchElementException("Cannot pop from an empty stack.");
         }
-        // Retrieve the last element
+
         T value = dynamicArray.get(dynamicArray.size() - 1);
         // Remove the last element
         dynamicArray.remove(dynamicArray.size() - 1);

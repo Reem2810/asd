@@ -8,9 +8,7 @@ public class DequeOfCircularArray<T> implements IDeque<T> {
         private int tail;
         private int size;
 
-        /**
-         * Constructs an empty deque with the default initial capacity.
-         */
+
         @SuppressWarnings("unchecked")
         public DequeOfCircularArray() {
             elements = (T[]) new Object[DEFAULT_CAPACITY];
@@ -19,11 +17,7 @@ public class DequeOfCircularArray<T> implements IDeque<T> {
             size = 0;
         }
 
-        /**
-         * Constructs an empty deque with the specified initial capacity.
-         *
-         * @param initialCapacity the initial capacity of the deque
-         */
+
         @SuppressWarnings("unchecked")
         public DequeOfCircularArray(int initialCapacity) {
             if (initialCapacity <= 0) {
@@ -80,19 +74,12 @@ public class DequeOfCircularArray<T> implements IDeque<T> {
             return size;
         }
 
-        /**
-         * Checks whether the deque is empty.
-         *
-         * @return true if the deque is empty, false otherwise
-         */
+
         private boolean isEmpty() {
             return size == 0;
         }
 
-        /**
-         * Ensures that the underlying array has sufficient capacity to add new elements.
-         * If the array is full, it resizes by doubling its current capacity.
-         */
+
         @SuppressWarnings("unchecked")
         private void ensureCapacity() {
             if (size == elements.length) {

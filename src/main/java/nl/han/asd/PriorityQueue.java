@@ -44,7 +44,7 @@ public class PriorityQueue<T extends Comparable<T>> implements IPriorityQueue<T>
             int parentIdx = (index - 1) / 2;
             T current = list.get(index);
             T parent = list.get(parentIdx);
-            if (current.compareTo(parent) < 0) { // Min-Heap
+            if (current.compareTo(parent) < 0) {
                 list.set(index, parent);
                 list.set(parentIdx, current);
                 index = parentIdx;
