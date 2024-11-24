@@ -1,24 +1,30 @@
+// DoubleLinkedList.java
 package nl.han.asd;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.ConcurrentModificationException;
 
-
-public class DoubleLinkedList<T> implements Iterable<T> {
+public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
     private DoubleLinkedListNode<T> head;
     private DoubleLinkedListNode<T> tail;
     private int size;
+    private int modCount; // For fail-fast iterators
 
     public DoubleLinkedList() {
         this.head = null;
         this.tail = null;
         this.size = 0;
+        this.modCount = 0;
     }
 
+    @Override
     public void add(T element) {
         addLast(element);
     }
 
+
+    @Override
     public void addFirst(T element) {
         if (element == null) {
             throw new IllegalArgumentException("Null values are not allowed in the list.");
@@ -36,8 +42,11 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         }
 
         size++;
+        modCount++;
     }
 
+
+    @Override
     public void addLast(T element) {
         if (element == null) {
             throw new IllegalArgumentException("Null values are not allowed in the list.");
@@ -55,8 +64,10 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         }
 
         size++;
+        modCount++;
     }
 
+    @Override
     public T removeFirst() {
         if (isEmpty()) {
             throw new NoSuchElementException("Cannot remove from an empty list.");
@@ -73,9 +84,11 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         }
 
         size--;
+        modCount++;
         return value;
     }
 
+    @Override
     public T removeLast() {
         if (isEmpty()) {
             throw new NoSuchElementException("Cannot remove from an empty list.");
@@ -92,22 +105,30 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         }
 
         size--;
+        modCount++;
         return value;
     }
 
+
+    @Override
     public T get(int index) {
         checkIndex(index);
         DoubleLinkedListNode<T> current = getNodeAt(index);
         return current.getValue();
     }
 
-
+    @Override
     public void set(int index, T element) {
+        if (element == null) {
+            throw new IllegalArgumentException("Null values are not allowed in the list.");
+        }
         checkIndex(index);
         DoubleLinkedListNode<T> current = getNodeAt(index);
         current.setValue(element);
+        modCount++;
     }
 
+    @Override
     public T remove(int index) {
         checkIndex(index);
         DoubleLinkedListNode<T> toRemove = getNodeAt(index);
@@ -130,10 +151,11 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         }
 
         size--;
+        modCount++;
         return removedValue;
     }
 
-
+    @Override
     public boolean remove(T element) {
         int index = indexOf(element);
         if (index != -1) {
@@ -143,10 +165,12 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         return false;
     }
 
+    @Override
     public boolean contains(T element) {
         return indexOf(element) != -1;
     }
 
+    @Override
     public int indexOf(T element) {
         int index = 0;
         for (DoubleLinkedListNode<T> current = head; current != null; current = current.getNext()) {
@@ -159,14 +183,18 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         return -1;
     }
 
+
+    @Override
     public int size() {
         return size;
     }
 
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
+    @Override
     public void clear() {
         DoubleLinkedListNode<T> current = head;
         while (current != null) {
@@ -179,6 +207,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         head = null;
         tail = null;
         size = 0;
+        modCount++;
     }
 
 
@@ -186,17 +215,23 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     public Iterator<T> iterator() {
         return new Iterator<>() {
             private DoubleLinkedListNode<T> current = head;
-            private int expectedModCount = size; // Simple fail-fast using size
+            private final int expectedModCount = modCount;
 
             @Override
             public boolean hasNext() {
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException("List modified during iteration.");
+                }
                 return current != null;
             }
 
             @Override
             public T next() {
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException("List modified during iteration.");
+                }
                 if (current == null) {
-                    throw new NoSuchElementException();
+                    throw new NoSuchElementException("No more elements to iterate.");
                 }
                 T value = current.getValue();
                 current = current.getNext();

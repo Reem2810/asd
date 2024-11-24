@@ -1,15 +1,21 @@
+// SingleLinkedList.java
 package nl.han.asd;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.ConcurrentModificationException;
 
 public class SingleLinkedList<T> implements ISingleLinkedList<T> {
-    private SingleLinkedListNode<T> first = null;
-    private SingleLinkedListNode<T> tail = null; // Tail pointer
+    private ISingleLinkedListNode<T> first = null;
+    private ISingleLinkedListNode<T> tail = null; // Tail pointer
     private int size = 0; // Size counter
+    private int modCount = 0; // Modification count
 
     @Override
     public void addFirst(T value) {
+        if (value == null) {
+            throw new IllegalArgumentException("Null values are not allowed in the list.");
+        }
         SingleLinkedListNode<T> newNode = new SingleLinkedListNode<>(value);
         newNode.setNext(first);
         first = newNode;
@@ -17,12 +23,15 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
         if (tail == null) { // List was empty before adding
             tail = newNode;
         }
-
         size++;
+        modCount++;
     }
 
     @Override
     public void addLast(T value) {
+        if (value == null) {
+            throw new IllegalArgumentException("Null values are not allowed in the list.");
+        }
         SingleLinkedListNode<T> newNode = new SingleLinkedListNode<>(value);
         if (first == null) { // List is empty
             first = newNode;
@@ -32,6 +41,7 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
             tail = newNode;
         }
         size++;
+        modCount++;
     }
 
     @Override
@@ -39,10 +49,14 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
         first = null;
         tail = null;
         size = 0;
+        modCount++;
     }
 
     @Override
     public void insert(int index, T value) {
+        if (value == null) {
+            throw new IllegalArgumentException("Null values are not allowed in the list.");
+        }
         // Validate the index
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
@@ -58,10 +72,11 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
                 tail = newNode;
             }
             size++;
+            modCount++;
             return;
         }
 
-        SingleLinkedListNode<T> current = first;
+        ISingleLinkedListNode<T> current = first;
         int count = 0;
 
         // Traverse to the node just before the desired index
@@ -80,6 +95,7 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
         }
 
         size++;
+        modCount++;
     }
 
     @Override
@@ -95,7 +111,7 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
             return;
         }
 
-        SingleLinkedListNode<T> current = first;
+        ISingleLinkedListNode<T> current = first;
         int count = 0;
 
         // Traverse to the node just before the one to remove
@@ -105,7 +121,7 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
         }
 
         // Remove the node
-        SingleLinkedListNode<T> toRemove = current.getNext();
+        ISingleLinkedListNode<T> toRemove = current.getNext();
         current.setNext(toRemove.getNext());
 
         // If removing the last node, update the tail
@@ -114,6 +130,7 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
         }
 
         size--;
+        modCount++;
     }
 
     @Override
@@ -121,7 +138,7 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
         if (pos < 0 || pos >= size) {
             throw new IndexOutOfBoundsException("Position: " + pos + ", Size: " + size);
         }
-        SingleLinkedListNode<T> current = first;
+        ISingleLinkedListNode<T> current = first;
         int count = 0;
 
         while (count < pos) {
@@ -145,6 +162,7 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
         }
 
         size--;
+        modCount++;
     }
 
     @Override
@@ -160,8 +178,28 @@ public class SingleLinkedList<T> implements ISingleLinkedList<T> {
         return size;
     }
 
+    protected int getModCount() {
+        return modCount;
+    }
+
     @Override
     public Iterator<T> iterator() {
-        return new SingleLinkedListIterator<>(first);
+        return new SingleLinkedListIterator<>(this, first);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        ISingleLinkedListNode<T> current = first;
+        while (current != null) {
+            sb.append(current.getValue());
+            if (current.getNext() != null) {
+                sb.append(", ");
+            }
+            current = current.getNext();
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }

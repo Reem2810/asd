@@ -1,22 +1,32 @@
+// SingleLinkedListNode.java
 package nl.han.asd;
 
-public class SingleLinkedListNode<T> {
+public class SingleLinkedListNode<T> implements ISingleLinkedListNode<T> {
     private T value;
-    private SingleLinkedListNode<T> next;
+    private ISingleLinkedListNode<T> next;
 
     public SingleLinkedListNode(T value) {
         this.value = value;
+        this.next = null;
     }
 
-    public void setNext(SingleLinkedListNode<T> next) {
-        this.next = next;
+    @Override
+    public T getValue() {
+        return value;
     }
 
-    public SingleLinkedListNode<T> getNext() {
+    @Override
+    public void setValue(T value) {
+        this.value = value;
+    }
+
+    @Override
+    public ISingleLinkedListNode<T> getNext() {
         return next;
     }
 
-    public T getValue() {
-        return value;
+    @Override
+    public void setNext(ISingleLinkedListNode<T> next) {
+        this.next = next;
     }
 }

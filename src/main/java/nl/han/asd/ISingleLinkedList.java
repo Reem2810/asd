@@ -1,11 +1,11 @@
+// ISingleLinkedList.java
 package nl.han.asd;
 
-public interface ISingleLinkedList<T> extends Iterable<T>{
+import java.util.Iterator;
 
+public interface ISingleLinkedList<T> extends Iterable<T> {
     void addFirst(T value);
-
     void addLast(T value);
-
     void clear();
     void insert(int index, T value);
     void delete(int pos);
