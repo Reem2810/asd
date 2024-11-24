@@ -30,19 +30,32 @@ import java.util.Iterator;
         System.out.println("testing DynamicArray against Marco's data ");
         System.out.println("*******************************");
 
-        DynamicArray<Float> dynamicFloatArray = new DynamicArray<>(1);
         DynamicArray<Integer> dynamicIntegerArray = new DynamicArray<>(1);
+        DynamicArray<Float> dynamicFloatArray = new DynamicArray<>(1);
         DynamicArray<Float> dynamicMixedArray = new DynamicArray<>(1);
 
         dynamicIntegerArray.addAll(datasetSorting.lijst_null_1);
         dynamicFloatArray.addAll(datasetSorting.lijst_float_8001);
       // dynamicMixedArray.addAll(datasetSorting.lijst_onsorteerbaar_3);
 
-        System.out.println(" Test contains " + dynamicIntegerArray.contains(4));
+        System.out.println(" Test contains for not existed element: " + dynamicIntegerArray.contains(4));
         dynamicIntegerArray.add(4); // Perform the add operation
-        System.out.println("Test contains after adding the element."+ dynamicIntegerArray.contains(4));
+        System.out.println("Test contains after adding the element: "+ dynamicIntegerArray.contains(4));
         System.out.println(" Size of dynamic array " + dynamicIntegerArray.size());
         System.out.println(dynamicIntegerArray.toString());
+
+        //testing clear in dynmaic array
+//    int elementsPerLine = 10;
+//               for (int i = 0; i < dynamicFloatArray.size(); i++) {
+//                  System.out.print(dynamicFloatArray.get(i) + " ");
+//                   if ((i + 1) % elementsPerLine == 0) {
+//                    System.out.println();
+//                   }
+//                }
+        System.out.println();
+        System.out.println("size of dynamic array before clear is: " + dynamicFloatArray.size());
+        dynamicFloatArray.clear();
+        System.out.println("size of dynamic array after clear is: " + dynamicFloatArray.size());
 
 
         System.out.println("*******************************");
@@ -61,15 +74,6 @@ import java.util.Iterator;
         System.out.println("Size of stack: " + stack.size());
 
 
-//    System.out.println("Dataset (lijst_float_8001):");
-       //
-//        int elementsPerLine = 10;
-//        for (int i = 0; i < dynamicFloatArray.size(); i++) {
-//            System.out.print(dynamicFloatArray.get(i) + " ");
-//            if ((i + 1) % elementsPerLine == 0) {
-//                System.out.println();
-//            }
-//        }
         System.out.println("*******************************");
         System.out.println("testing DoubleLinkedList Marco's data ");
         System.out.println("*******************************");

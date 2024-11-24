@@ -182,6 +182,7 @@ public class DynamicArray<E> implements IDynamicArray<E> {
     /**
      * Removes all elements from the dynamic array.
      */
+
     @Override
     public void clear() {
         Arrays.fill(elements, 0, size, null);
