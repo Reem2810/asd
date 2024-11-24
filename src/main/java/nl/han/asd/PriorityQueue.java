@@ -1,10 +1,10 @@
-package nl.han.asd;
+import nl.han.asd.IPriorityQueue;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-
-public class PriorityQueue<T extends Comparable<T>> implements IPriorityQueue<T> {
+public class PriorityQueue<T extends Comparable<T>> implements IPriorityQueue<T>, Iterable<T> {
     private List<T> list;
 
     public PriorityQueue() {
@@ -13,6 +13,9 @@ public class PriorityQueue<T extends Comparable<T>> implements IPriorityQueue<T>
 
     @Override
     public void add(T element) {
+        if (element == null) {
+            throw new NullPointerException("Null elements are not allowed in the PriorityQueue.");
+        }
         list.add(element);
         heapifyUp(list.size() - 1);
     }
@@ -86,5 +89,19 @@ public class PriorityQueue<T extends Comparable<T>> implements IPriorityQueue<T>
 
     public boolean isEmpty() {
         return list.isEmpty();
+    }
+
+    public void clear() {
+        list.clear();
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return list.iterator();
+    }
+
+    @Override
+    public String toString() {
+        return "PriorityQueue: " + list.toString();
     }
 }
