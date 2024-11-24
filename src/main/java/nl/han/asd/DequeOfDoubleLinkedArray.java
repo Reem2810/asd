@@ -1,6 +1,7 @@
 // DequeOfDoubleLinkedArray.java
 package nl.han.asd;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class DequeOfDoubleLinkedArray<T> implements IDeque<T> {
@@ -50,6 +51,11 @@ public class DequeOfDoubleLinkedArray<T> implements IDeque<T> {
     @Override
     public boolean isEmpty() {
         return list.isEmpty();
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return list.iterator();
     }
 
     @Override
