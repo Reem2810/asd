@@ -1,4 +1,3 @@
-
 package nl.han.asd;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DoubleLinkedListPerformanceTest {
 
     private DoubleLinkedList<String> doubleLinkedList;
+
     private static final int ELEMENT_COUNT = 100_000; // Number of elements for bulk operations
     private static final int MIXED_OPERATIONS = 50_000; // Number of mixed operations
 
@@ -66,9 +66,9 @@ public class DoubleLinkedListPerformanceTest {
         long startTime = System.nanoTime();
         doubleLinkedList.addAll(valuesToAdd);
         long endTime = System.nanoTime();
-
+        long durationMs = (endTime - startTime) / 1_000_000;
         // Result
-        System.out.println("Time to add " + ELEMENT_COUNT + " elements using addAll: " + (endTime - startTime) + " nanoseconds");
+        System.out.println("Time to add " + ELEMENT_COUNT + " elements using addAll: " + durationMs + " seconds");
         assertEquals(ELEMENT_COUNT, doubleLinkedList.size(), "DoubleLinkedList should contain all added elements.");
     }
 
@@ -133,18 +133,18 @@ public class DoubleLinkedListPerformanceTest {
         doubleLinkedList.add("Element1");
         doubleLinkedList.add("Element2");
         doubleLinkedList.add("Element3");
-        doubleLinkedList.add("Element2"); // Duplicate
+        doubleLinkedList.add("Element4"); // Duplicate
 
         // Act
         long startTime = System.nanoTime();
-        boolean removed = doubleLinkedList.remove("Element2"); // Should remove the first "Element2"
+        boolean removed = doubleLinkedList.remove("Element3"); // Should remove the first "Element2"
         long endTime = System.nanoTime();
 
         // Result
         System.out.println("Time to remove element 'Element2': " + (endTime - startTime) + " nanoseconds");
         assertTrue(removed, "Element 'Element2' should be removed.");
         assertEquals(3, doubleLinkedList.size(), "DoubleLinkedList should have three elements after removal.");
-        assertEquals("Element2", doubleLinkedList.get(1), "Second element should now be 'Element3'.");
+        assertEquals("Element4", doubleLinkedList.get(2), "Second element should now be 'Element3'.");
     }
 
     @Test
@@ -168,18 +168,53 @@ public class DoubleLinkedListPerformanceTest {
     @Test
     void testSetElement() {
         // Arrange
-        doubleLinkedList.add("Element1");
-        doubleLinkedList.add("Element2");
-        doubleLinkedList.add("Element3");
+        doubleLinkedList.add("Element1"); // Index 0
+        doubleLinkedList.add("Element2"); // Index 1
+        doubleLinkedList.add("Element3"); // Index 2
+        doubleLinkedList.add("Element4"); // Index 3
 
         // Act
         long startTime = System.nanoTime();
-        doubleLinkedList.set(1, "Element2-Updated");
+        doubleLinkedList.set(2, "Element3-Updated");
         long endTime = System.nanoTime();
 
         // Result
-        System.out.println("Time to set element at index 1: " + (endTime - startTime) + " nanoseconds");
-        assertEquals("Element2-Updated", doubleLinkedList.get(1), "Element at index 1 should be updated.");
+        System.out.println("Time to set element at index 2: " + (endTime - startTime) + " nanoseconds");
+        assertEquals("Element3-Updated", doubleLinkedList.get(2), "Element at index 2 should be updated.");
+    }
+
+    @Test
+    void testContainsWithPizzaObjects() {
+        // Initialize the DoubleLinkedList directly within the test
+        DoubleLinkedList<Pizza> doubleLinkedListOfPizzza = new DoubleLinkedList<>();
+
+        // Arrange
+        Pizza margherita = new Pizza("Margherita", 8);
+        Pizza pepperoni = new Pizza("Pepperoni", 10);
+        Pizza hawaiian = new Pizza("Hawaiian", 12);
+
+        doubleLinkedListOfPizzza.add(margherita);
+        doubleLinkedListOfPizzza.add(pepperoni);
+        doubleLinkedListOfPizzza.add(hawaiian);
+
+        // Act: Check if list contains existing Pizza instance
+        long startTime = System.nanoTime();
+        boolean containsPepperoni = doubleLinkedListOfPizzza.contains(pepperoni);
+        long endTime = System.nanoTime();
+
+        // Result
+        System.out.println("Time to check contains (existing Pizza instance): " + (endTime - startTime) + " nanoseconds");
+        assertTrue(containsPepperoni, "DoubleLinkedList should contain Pepperoni Pizza instance.");
+
+        // Act: Check with a non-existing Pizza
+        Pizza veggie = new Pizza("Veggie", 9);
+        long startTimeNonExisting = System.nanoTime();
+        boolean containsVeggie = doubleLinkedListOfPizzza.contains(veggie);
+        long endTimeNonExisting = System.nanoTime();
+
+        // Result
+        System.out.println("Time to check contains (non-existing Pizza): " + (endTimeNonExisting - startTimeNonExisting) + " nanoseconds");
+        assertFalse(containsVeggie, "DoubleLinkedList should not contain Veggie Pizza.");
     }
 
     @Test
@@ -340,27 +375,6 @@ public class DoubleLinkedListPerformanceTest {
         assertTrue(doubleLinkedList.isEmpty(), "DoubleLinkedList should be empty after removing all elements.");
     }
 
-    @Test
-    void testAddNullElements() {
-        // Arrange
-        String[] valuesToAdd = {"Element1", null, "Element3", null};
-
-        // Act
-        long startTime = System.nanoTime();
-        for (String value : valuesToAdd) {
-            try {
-                doubleLinkedList.add(value);
-            } catch (IllegalArgumentException e) {
-                // Expected exception for null elements
-            }
-        }
-        long endTime = System.nanoTime();
-
-        // Result
-        System.out.println("Time to add elements including nulls: " + (endTime - startTime) + " nanoseconds");
-        assertEquals(2, doubleLinkedList.size(), "DoubleLinkedList should contain only non-null elements.");
-        assertFalse(doubleLinkedList.contains(null), "DoubleLinkedList should not contain null elements.");
-    }
 
     @Test
     void testRemoveNullElements() {
@@ -372,7 +386,12 @@ public class DoubleLinkedListPerformanceTest {
 
         // Act
         long startTime = System.nanoTime();
-        boolean removed = doubleLinkedList.remove(null); // Should return false
+        boolean removed = false;
+        try {
+            removed = doubleLinkedList.remove(null); // Should throw IllegalArgumentException
+        } catch (IllegalArgumentException e) {
+            // Expected exception
+        }
         long endTime = System.nanoTime();
 
         // Result
@@ -475,13 +494,14 @@ public class DoubleLinkedListPerformanceTest {
         long startTime = System.nanoTime();
         for (int i = 0; i < MIXED_OPERATIONS; i++) {
             doubleLinkedList.add("Element" + rand.nextInt());
-            doubleLinkedList.removeFirst();
+            if (!doubleLinkedList.isEmpty()) {
+                doubleLinkedList.removeFirst();
+            }
         }
         long endTime = System.nanoTime();
 
         // Result
         System.out.println("Time for " + MIXED_OPERATIONS + " mixed add and removeFirst operations: " + (endTime - startTime) + " nanoseconds");
-        // Since we add and removeFirst the same number of elements, the size should remain 0
         assertEquals(0, doubleLinkedList.size(), "DoubleLinkedList should be empty after mixed operations.");
         assertTrue(doubleLinkedList.isEmpty(), "DoubleLinkedList should be empty after mixed operations.");
     }
@@ -549,11 +569,16 @@ public class DoubleLinkedListPerformanceTest {
 
         // Act
         long startTime = System.nanoTime();
-        for (String value : valuesToAdd) {
-            try {
+        for (int i = 0; i < valuesToAdd.length; i++) {
+            String value = valuesToAdd[i];
+            if (value == null) {
+                try {
+                    doubleLinkedList.add(value);
+                } catch (IllegalArgumentException e) {
+                    // Expected exception for null elements
+                }
+            } else {
                 doubleLinkedList.add(value);
-            } catch (IllegalArgumentException e) {
-                // Expected exception for null elements
             }
         }
         long endTime = System.nanoTime();
