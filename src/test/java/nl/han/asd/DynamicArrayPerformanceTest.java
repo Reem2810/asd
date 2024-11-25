@@ -31,7 +31,7 @@ public class DynamicArrayPerformanceTest {
     @Test
     void testAddMultipleElements(){
         // Arrange
-        String[] valuesToAdd = {"Margherita", "Mari e monte", "Marinara", "Four-seasons"};
+        String[] valuesToAdd = {"Margherita", "Mari e monte", "Marinara", "Four-seasons","Margherita", "Mari e monte", "Marinara", "Four-seasons"};
 
         // Act
         var startTime = System.nanoTime();
@@ -43,14 +43,19 @@ public class DynamicArrayPerformanceTest {
     }
 
     @Test
-    void testContainsExistingElement(){
+    void testContainsExistingElementWarmingUp() {
         // Arrange
-        String[] valuesToAdd = {"Margherita", "Mari e monte", "Marinara"};
+        String[] valuesToAdd = {  "Marinara", "Four sesons","Margherita","Mari e monte"};
         dynamicArray.addAll(valuesToAdd);
+
+        // Warm-Up
+        for (int i = 0; i < 1000; i++) {
+            dynamicArray.contains("Mari e monte");
+        }
 
         // Act
         var startTime = System.nanoTime();
-        boolean contains = dynamicArray.contains("Marinara");
+        boolean contains = dynamicArray.contains("Mari e monte");
         var endTime = System.nanoTime();
 
         // Result
@@ -58,11 +63,18 @@ public class DynamicArrayPerformanceTest {
         System.out.println("Contains 'Mari e monte': " + contains);
     }
 
+
+
     @Test
-    void testContainsExistingElementAtEarlierElement(){
+    void testContainsExistingElementAtEarlierElementWarmingUp() {
         // Arrange
         String[] valuesToAdd = {"Margherita", "Mari e monte", "Marinara"};
         dynamicArray.addAll(valuesToAdd);
+
+        // Warm-Up
+        for (int i = 0; i < 1000; i++) {
+            dynamicArray.contains("Margherita");
+        }
 
         // Act
         var startTime = System.nanoTime();
@@ -71,15 +83,19 @@ public class DynamicArrayPerformanceTest {
 
         // Result
         System.out.println("Time to check contains (existing element at earlier element): " + (endTime - startTime) + " nanoseconds");
-        System.out.println("Contains 'Mari e monte': " + contains);
+        System.out.println("Contains 'Margherita': " + contains);
     }
 
-
     @Test
-    void testContainsNonExistingElement(){
+    void testContainsNonExistingElementWithWarmUp() {
         // Arrange
         String[] valuesToAdd = {"Margherita", "Mari e monte", "Marinara"};
         dynamicArray.addAll(valuesToAdd);
+
+        // Warm-Up
+        for (int i = 0; i < 1000; i++) {
+            dynamicArray.contains("NonexistentElement");
+        }
 
         // Act
         var startTime = System.nanoTime();
@@ -87,31 +103,46 @@ public class DynamicArrayPerformanceTest {
         var endTime = System.nanoTime();
 
         // Result
-        System.out.println("Time to check contains (non-existing element): " + (endTime - startTime) + " nanoseconds");
+        System.out.println("Time to check contains (non-existing element after warm-up): " + (endTime - startTime) + " nanoseconds");
         System.out.println("Contains 'Reem': " + contains);
     }
 
-    @Test
-    void testGetElement(){
-        // Arrange
-        String[] valuesToAdd = {"Margherita", "Mari e monte", "Marinara", "Four-seasons"};
-        dynamicArray.addAll(valuesToAdd);
 
-        // Act
-        var startTime = System.nanoTime();
-        String element = dynamicArray.get(3);
-        var endTime = System.nanoTime();
-
-        // Result
-        System.out.println("Time to get element at index 2: " + (endTime - startTime) + " nanoseconds");
-        System.out.println("Element at index 2: " + element);
+    public void warmUpGet(DynamicArray<String> dynamicArray, int index, int iterations) {
+        for (int i = 0; i < iterations; i++) {
+            dynamicArray.get(index);
+        }
     }
 
     @Test
-    void testGetEarlierElement(){
+    void testGetElementWithWarmUp() {
+        // Arrange
+        String[] valuesToAdd = {"Margherita", "Mari e monte", "Marinara", "Four-seasons",
+                "Margherita", "Mari e monte", "Marinara", "Four-seasons"};
+        dynamicArray.addAll(valuesToAdd);
+
+        // Warm-Up
+        warmUpGet(dynamicArray, 7, 1000);
+
+        // Act
+        var startTime = System.nanoTime();
+        String element = dynamicArray.get(7);
+        var endTime = System.nanoTime();
+
+        // Result
+        System.out.println("Time to get element at index 7 (after warm-up): " + (endTime - startTime) + " nanoseconds");
+        System.out.println("Element at index 7: " + element);
+    }
+
+
+    @Test
+    void testGetEarlierElementWithWarmUp() {
         // Arrange
         String[] valuesToAdd = {"Margherita", "Mari e monte", "Marinara", "Four-seasons"};
         dynamicArray.addAll(valuesToAdd);
+
+        // Warm-Up
+        warmUpGet(dynamicArray, 0, 1000);
 
         // Act
         var startTime = System.nanoTime();
@@ -119,9 +150,10 @@ public class DynamicArrayPerformanceTest {
         var endTime = System.nanoTime();
 
         // Result
-        System.out.println("Time to get element at index 2: " + (endTime - startTime) + " nanoseconds");
-        System.out.println("Element at index 2: " + element);
+        System.out.println("Time to get element at index 0 (after warm-up): " + (endTime - startTime) + " nanoseconds");
+        System.out.println("Element at index 0: " + element);
     }
+
 
     @Test
     void testSetElement(){
@@ -132,12 +164,12 @@ public class DynamicArrayPerformanceTest {
 
         // Act
         var startTime = System.nanoTime();
-        dynamicArray.set(1, newValue);
+        dynamicArray.set(2, newValue);
         var endTime = System.nanoTime();
 
         // Result
         System.out.println("Time to set element at index 1: " + (endTime - startTime) + " nanoseconds");
-        System.out.println("Element at index 1 after set: " + dynamicArray.get(1));
+        System.out.println("Element at index 1 after set: " + dynamicArray.get(2));
     }
 
     @Test

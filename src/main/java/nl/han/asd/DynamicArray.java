@@ -40,22 +40,21 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         }
         int numNew = newElements.length;
         if (numNew == 0) {
-            return; // Nothing to add
+            return;
+        }
+        // Ensure sufficient capacity
+        int requiredCapacity = size + numNew;
+        if (requiredCapacity > capacity) {
+            capacity = Math.max(capacity * 2, requiredCapacity);
+            elements = Arrays.copyOf(elements, capacity);
         }
 
-        while (size + numNew > capacity) {
-            if (capacity > (Integer.MAX_VALUE / 2)) {
-                throw new OutOfMemoryError("Cannot increase capacity beyond Integer.MAX_VALUE");
-            }
-            capacity *= 2;
-        }
-
-        elements = Arrays.copyOf(elements, capacity);
-        modCount++;
-
+        // Copy new elements and update size
         System.arraycopy(newElements, 0, elements, size, numNew);
         size += numNew;
+        modCount++;
     }
+
 
     @Override
     public E get(int index) {
@@ -78,7 +77,7 @@ public class DynamicArray<E> implements IDynamicArray<E> {
         if (numMoved > 0) {
             System.arraycopy(elements, index + 1, elements, index, numMoved);
         }
-        elements[--size] = null; // Help GC
+        elements[--size] = null;
         modCount++;
         return removedElement;
     }
@@ -95,6 +94,7 @@ public class DynamicArray<E> implements IDynamicArray<E> {
 
     @Override
     public boolean contains(E element) {
+
         return indexOf(element) != -1;
     }
 
