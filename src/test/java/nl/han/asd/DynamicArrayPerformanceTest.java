@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class DynamicArrayPerformanceTest {
 
     private DynamicArray<String> dynamicArray;
@@ -40,6 +43,40 @@ public class DynamicArrayPerformanceTest {
 
         // Result
         System.out.println("Time to add " + valuesToAdd.length + " elements: " + (endTime - startTime) + " nanoseconds");
+    }
+
+    @Test
+    void testContainsWithPizzaObjects() {
+        // Initialize the DoubleLinkedList directly within the test
+        DynamicArray<Pizza> dynamicArrayOfPizza = new DynamicArray<>();
+
+        // Arrange
+        Pizza margherita = new Pizza("Margherita", 8);
+        Pizza pepperoni = new Pizza("Pepperoni", 10);
+        Pizza hawaiian = new Pizza("Hawaiian", 12);
+
+        dynamicArrayOfPizza.add(margherita);
+        dynamicArrayOfPizza.add(pepperoni);
+        dynamicArrayOfPizza.add(hawaiian);
+
+        // Act: Check if list contains existing Pizza instance
+        long startTime = System.nanoTime();
+        boolean containsPepperoni = dynamicArrayOfPizza.contains(pepperoni);
+        long endTime = System.nanoTime();
+
+        // Result
+        System.out.println("Time to check contains (existing Pizza instance): " + (endTime - startTime) + " nanoseconds");
+        assertTrue(containsPepperoni, "DoubleLinkedList should contain Pepperoni Pizza instance.");
+
+        // Act: Check with a non-existing Pizza
+        Pizza veggie = new Pizza("Veggie", 9);
+        long startTimeNonExisting = System.nanoTime();
+        boolean containsVeggie = dynamicArrayOfPizza.contains(veggie);
+        long endTimeNonExisting = System.nanoTime();
+
+        // Result
+        System.out.println("Time to check contains (non-existing Pizza): " + (endTimeNonExisting - startTimeNonExisting) + " nanoseconds");
+        assertFalse(containsVeggie, "DoubleLinkedList should not contain Veggie Pizza.");
     }
 
     @Test
