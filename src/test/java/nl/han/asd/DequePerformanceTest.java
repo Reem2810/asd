@@ -29,9 +29,8 @@ public class DequePerformanceTest {
         long startTime = System.nanoTime();
         dequeCircularArray.InsertLeft(element);
         long endTime = System.nanoTime();
-
-        long durationMs = (endTime - startTime) / 1_000_000;
-        System.out.println("DequeOfCircularArray InsertLeft Single Element time: " + durationMs + " ms | Size: " + dequeCircularArray.size());
+        long duration = (endTime - startTime);
+        System.out.println("DequeOfCircularArray InsertLeft Single Element time: " + duration + "nanno seconds | Size: " + dequeCircularArray.size());
 
         assertEquals(1, dequeCircularArray.size(), "Size should be 1 after inserting one element.");
         assertFalse(dequeCircularArray.isEmpty(), "Deque should not be empty after inserting one element.");
@@ -59,8 +58,8 @@ public class DequePerformanceTest {
         dequeDoubleLinkedArray.InsertLeft(element);
         long endTime = System.nanoTime();
 
-        long durationMs = (endTime - startTime) / 1_000_000;
-        System.out.println("DequeOfDoubleLinkedArray InsertLeft Single Element time: " + durationMs + " ms | Size: " + dequeDoubleLinkedArray.size());
+        long durationMs = (endTime - startTime) ;
+        System.out.println("DequeOfDoubleLinkedArray InsertLeft Single Element time: " + durationMs + " nanno seconds | Size: " + dequeDoubleLinkedArray.size());
 
         assertEquals(1, dequeDoubleLinkedArray.size(), "Size should be 1 after inserting one element.");
         assertFalse(dequeDoubleLinkedArray.isEmpty(), "Deque should not be empty after inserting one element.");
@@ -90,8 +89,8 @@ public class DequePerformanceTest {
         dequeCircularArray.InsertRight(element);
         long endTime = System.nanoTime();
 
-        long durationMs = (endTime - startTime) / 1_000_000;
-        System.out.println("DequeOfCircularArray InsertRight Single Element time: " + durationMs + " ms | Size: " + dequeCircularArray.size());
+        long duration = (endTime - startTime) ;
+        System.out.println("DequeOfCircularArray InsertRight Single Element time: " + duration + " nanno seconds | Size: " + dequeCircularArray.size());
 
         assertEquals(1, dequeCircularArray.size(), "Size should be 1 after inserting one element.");
         assertFalse(dequeCircularArray.isEmpty(), "Deque should not be empty after inserting one element.");
@@ -119,7 +118,7 @@ public class DequePerformanceTest {
         dequeDoubleLinkedArray.InsertRight(element);
         long endTime = System.nanoTime();
 
-        long durationMs = (endTime - startTime) / 1_000_000;
+        long durationMs = (endTime - startTime) ;
         System.out.println("DequeOfDoubleLinkedArray InsertRight Single Element time: " + durationMs + " ms | Size: " + dequeDoubleLinkedArray.size());
 
         assertEquals(1, dequeDoubleLinkedArray.size(), "Size should be 1 after inserting one element.");
@@ -151,8 +150,8 @@ public class DequePerformanceTest {
         String removed = dequeCircularArray.DeleteLeft();
         long endTime = System.nanoTime();
 
-        long durationMs = (endTime - startTime) / 1_000_000;
-        System.out.println("DequeOfCircularArray DeleteLeft Single Element time: " + durationMs + " ms | Removed: " + removed + " | Size: " + dequeCircularArray.size());
+        long duration = (endTime - startTime) ;
+        System.out.println("DequeOfCircularArray DeleteLeft Single Element time: " + duration + " nanno seconds | Removed: " + removed + " | Size: " + dequeCircularArray.size());
 
         assertEquals("Element1", removed, "Removed element should be 'Element1'.");
         assertEquals(0, dequeCircularArray.size(), "Size should be 0 after deletion.");
@@ -169,8 +168,6 @@ public class DequePerformanceTest {
         long startTime = System.nanoTime();
         for (int i = 0; i < ELEMENT_COUNT; i++) {
             String removed = dequeCircularArray.DeleteLeft();
-            // Optionally, verify the removed element
-            // assertEquals("Element " + (ELEMENT_COUNT - 1 - i), removed);
         }
         long endTime = System.nanoTime();
 
@@ -190,8 +187,8 @@ public class DequePerformanceTest {
         String removed = dequeDoubleLinkedArray.DeleteLeft();
         long endTime = System.nanoTime();
 
-        long durationMs = (endTime - startTime) / 1_000_000;
-        System.out.println("DequeOfDoubleLinkedArray DeleteLeft Single Element time: " + durationMs + " ms | Removed: " + removed + " | Size: " + dequeDoubleLinkedArray.size());
+        long duration = (endTime - startTime);
+        System.out.println("DequeOfDoubleLinkedArray DeleteLeft Single Element time: " + duration + " nanno time | Removed: " + removed + " | Size: " + dequeDoubleLinkedArray.size());
 
         assertEquals("Element1", removed, "Removed element should be 'Element1'.");
         assertEquals(0, dequeDoubleLinkedArray.size(), "Size should be 0 after deletion.");
@@ -231,8 +228,8 @@ public class DequePerformanceTest {
         String removed = dequeCircularArray.DeleteRight();
         long endTime = System.nanoTime();
 
-        long durationMs = (endTime - startTime) / 1_000_000;
-        System.out.println("DequeOfCircularArray DeleteRight Single Element time: " + durationMs + " ms | Removed: " + removed + " | Size: " + dequeCircularArray.size());
+        long duration = (endTime - startTime);
+        System.out.println("DequeOfCircularArray DeleteRight Single Element time: " + duration + " nanno time | Removed: " + removed + " | Size: " + dequeCircularArray.size());
 
         assertEquals("Element1", removed, "Removed element should be 'Element1'.");
         assertEquals(0, dequeCircularArray.size(), "Size should be 0 after deletion.");
@@ -270,8 +267,8 @@ public class DequePerformanceTest {
         String removed = dequeDoubleLinkedArray.DeleteRight();
         long endTime = System.nanoTime();
 
-        long durationMs = (endTime - startTime) / 1_000_000;
-        System.out.println("DequeOfDoubleLinkedArray DeleteRight Single Element time: " + durationMs + " ms | Removed: " + removed + " | Size: " + dequeDoubleLinkedArray.size());
+        long duration = (endTime - startTime);
+        System.out.println("DequeOfDoubleLinkedArray DeleteRight Single Element time: " + duration + " nanno time | Removed: " + removed + " | Size: " + dequeDoubleLinkedArray.size());
 
         assertEquals("Element1", removed, "Removed element should be 'Element1'.");
         assertEquals(0, dequeDoubleLinkedArray.size(), "Size should be 0 after deletion.");
@@ -288,8 +285,6 @@ public class DequePerformanceTest {
         long startTime = System.nanoTime();
         for (int i = 0; i < ELEMENT_COUNT; i++) {
             String removed = dequeDoubleLinkedArray.DeleteRight();
-            // Optionally, verify the removed element
-            // assertEquals("Element " + (ELEMENT_COUNT - 1 - i), removed);
         }
         long endTime = System.nanoTime();
 
@@ -388,7 +383,7 @@ public class DequePerformanceTest {
         assertEquals(0, dequeDoubleLinkedArray.size(), "Size should be 0 after deletion.");
     }
 
-    // ===================== Mixed Operations Test =====================
+    // ====== Mixed Operations Test/ Just to compare Deque of CircularArray vs Deque of doublelLinkedList ==========
 
     @Test
     void testMixedOperations_DequeOfCircularArray() {
