@@ -8,6 +8,7 @@ public class PriorityQueue<T extends Comparable<T>> implements IPriorityQueue<T>
     private List<T> list;
 
     public PriorityQueue() {
+
         list = new ArrayList<>();
     }
 
@@ -84,10 +85,12 @@ public class PriorityQueue<T extends Comparable<T>> implements IPriorityQueue<T>
     }
 
     public int size() {
+
         return list.size();
     }
 
     public boolean isEmpty() {
+
         return list.isEmpty();
     }
 
@@ -102,6 +105,7 @@ public class PriorityQueue<T extends Comparable<T>> implements IPriorityQueue<T>
 
     @Override
     public String toString() {
+
         return "PriorityQueue: " + list.toString();
     }
 }

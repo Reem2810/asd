@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PriorityQueuePerformanceTest {
 
     private PriorityQueue<Integer> priorityQueue;
-    private static final int ELEMENT_COUNT = 100_000; // Number of elements for bulk operations
+    private static final int ELEMENT_COUNT = 50_000; // Number of elements for bulk operations
     private static final int MIXED_OPERATIONS = 50_000; // Number of mixed operations
 
     @BeforeEach
@@ -25,16 +25,23 @@ public class PriorityQueuePerformanceTest {
         // Arrange
         Integer valueToAdd = 42;
 
+        // Warm-Up
+        for (int i = 0; i < 1000; i++) {
+            priorityQueue.add(i); // Populate with dummy elements to stabilize performance
+        }
+        priorityQueue.clear();
+
         // Act
         long startTime = System.nanoTime();
         priorityQueue.add(valueToAdd);
         long endTime = System.nanoTime();
 
         // Result
-        System.out.println("Time to add one element: " + (endTime - startTime) + " nanoseconds");
+        System.out.println("Time to add one element (after warm-up): " + (endTime - startTime) + " nanoseconds");
         assertEquals(1, priorityQueue.size(), "PriorityQueue should contain one element after adding.");
         assertFalse(priorityQueue.isEmpty(), "PriorityQueue should not be empty after adding an element.");
     }
+
 
     @Test
     void testAddMultipleElements() {

@@ -1,4 +1,3 @@
-// IDoubleLinkedListNode.java
 package nl.han.asd;
 
 public interface IDoubleLinkedListNode<T> {

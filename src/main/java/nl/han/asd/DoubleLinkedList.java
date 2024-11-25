@@ -1,4 +1,3 @@
-// DoubleLinkedList.java
 package nl.han.asd;
 
 import java.util.Iterator;
@@ -8,7 +7,7 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
     private IDoubleLinkedListNode<T> head;
     private IDoubleLinkedListNode<T> tail;
     private int size;
-    private int modCount; // For fail-fast iterators
+    private int modCount;
 
     public DoubleLinkedList() {
         this.head = null;
@@ -68,10 +67,15 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
         if (elements == null) {
             throw new IllegalArgumentException("Input array cannot be null.");
         }
-        for (T element : elements) {
+        for (int i = 0; i < elements.length; i++) {
+            T element = elements[i];
+            if (element == null) {
+                throw new IllegalArgumentException("Null elements are not allowed in the list. Null found at index " + i + ".");
+            }
             addLast(element);
         }
     }
+
     @Override
     public T removeFirst() {
         if (isEmpty()) {
@@ -80,7 +84,7 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
 
         T value = head.getValue();
 
-        if (head == tail) { // Only one element
+        if (head == tail) {
             head = null;
             tail = null;
         } else {
@@ -101,7 +105,7 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
 
         T value = tail.getValue();
 
-        if (head == tail) { // Only one element
+        if (head == tail) {
             head = null;
             tail = null;
         } else {
@@ -138,16 +142,16 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
         IDoubleLinkedListNode<T> toRemove = getNodeAt(index);
         T removedValue = toRemove.getValue();
 
-        if (toRemove == head && toRemove == tail) { // Only one element
+        if (toRemove == head && toRemove == tail) {
             head = null;
             tail = null;
-        } else if (toRemove == head) { // Removing head
+        } else if (toRemove == head) {
             head = head.getNext();
             head.setPrev(null);
-        } else if (toRemove == tail) { // Removing tail
+        } else if (toRemove == tail) {
             tail = tail.getPrev();
             tail.setNext(null);
-        } else { // Removing from middle
+        } else {
             IDoubleLinkedListNode<T> prevNode = toRemove.getPrev();
             IDoubleLinkedListNode<T> nextNode = toRemove.getNext();
             prevNode.setNext(nextNode);
@@ -161,6 +165,9 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
 
     @Override
     public boolean remove(T element) {
+        if (element == null) {
+            throw new IllegalArgumentException("Null elements are not allowed in the list.");
+        }
         int index = indexOf(element);
         if (index != -1) {
             remove(index);
@@ -171,15 +178,20 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
 
     @Override
     public boolean contains(T element) {
+        if (element == null) {
+            throw new IllegalArgumentException("Null elements are not allowed in the list.");
+        }
         return indexOf(element) != -1;
     }
 
     @Override
     public int indexOf(T element) {
+        if (element == null) {
+            throw new IllegalArgumentException("Null elements are not allowed in the list.");
+        }
         int index = 0;
         for (IDoubleLinkedListNode<T> current = head; current != null; current = current.getNext()) {
-            if ((element == null && current.getValue() == null) ||
-                    (element != null && element.equals(current.getValue()))) {
+            if (element.equals(current.getValue())) {
                 return index;
             }
             index++;
@@ -235,7 +247,6 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
     }
 
     private IDoubleLinkedListNode<T> getNodeAt(int index) {
-        // Optimize traversal by starting from head or tail based on index
         if (index < size / 2) {
             IDoubleLinkedListNode<T> current = head;
             for (int i = 0; i < index; i++) {
@@ -257,8 +268,8 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
         }
     }
 
-
     protected int getModCount() {
+
         return modCount;
     }
 }

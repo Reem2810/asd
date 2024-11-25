@@ -1,4 +1,3 @@
-// DoubleLinkedListIterator.java
 package nl.han.asd;
 
 import java.util.Iterator;
@@ -35,5 +34,10 @@ public class DoubleLinkedListIterator<T> implements Iterator<T> {
         T value = current.getValue();
         current = current.getNext();
         return value;
+    }
+
+    @Override
+    public void remove() {
+        throw new UnsupportedOperationException("Remove operation is not supported.");
     }
 }
