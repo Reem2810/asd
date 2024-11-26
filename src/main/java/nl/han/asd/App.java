@@ -88,6 +88,15 @@ public class App {
 
         System.out.println("Last element in the list: " + doubleLinkedListOfInteger.get(doubleLinkedListOfInteger.size() - 1));
 
+
+        System.out.println("*******************************");
+        System.out.println("testing Deque Marco's data ");
+        System.out.println("*******************************");
+
+        IDeque<Float> dequeOfFloat = new DequeOfCircularArray<>();
+        dequeOfFloat.InsertAllRight(datasetSorting.lijst_float_8001);
+        
+
     }
 
     private URL createPathForResource(final String resource) {

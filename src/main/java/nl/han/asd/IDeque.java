@@ -8,6 +8,9 @@ public interface IDeque<T> extends Iterable<T> {
     void InsertRight(T element);
     T DeleteLeft();
     T DeleteRight();
+
+    void InsertAllRight(T[] values);
+
     int size();
     boolean isEmpty();
     Iterator<T> iterator();

@@ -44,6 +44,11 @@ public class DequeOfDoubleLinkedList<T> implements IDeque<T> {
     }
 
     @Override
+    public void InsertAllRight(T[] values) {
+
+    }
+
+    @Override
     public int size() {
         return list.size();
     }

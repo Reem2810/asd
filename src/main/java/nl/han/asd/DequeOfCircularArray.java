@@ -75,6 +75,18 @@ public class DequeOfCircularArray<T> implements IDeque<T> {
         size--;
         return element;
     }
+@Override
+    public void InsertAllRight(T[] values) {
+        if (values == null) {
+            throw new IllegalArgumentException("Input array cannot be null.");
+        }
+        for (T value : values) {
+            if (value == null) {
+                throw new IllegalArgumentException("Null values are not allowed in the deque.");
+            }
+            InsertRight(value);
+        }
+    }
 
     @Override
     public int size() {
