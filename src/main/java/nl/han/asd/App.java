@@ -71,26 +71,20 @@ public class App {
         System.out.println("*******************************");
         System.out.println("testing DoubleLinkedList Marco's data ");
         System.out.println("*******************************");
+        
+        DoubleLinkedList<Integer> doubleLinkedList = new DoubleLinkedList<>();
+        doubleLinkedList.addAll(datasetSorting.lijst_willekeurig_10000);
 
-        Integer[] lijst_oplopend_10000 = new Integer[5000];
-        for (int i = 0; i < 5000; i++) {
-            lijst_oplopend_10000[i] = i + 1;
-        }
+        System.out.println("List size after adding elements: " + doubleLinkedList.size());
 
-        DoubleLinkedList<Integer> doubleList = new DoubleLinkedList<>();
-
-        doubleList.addAll(lijst_oplopend_10000);
-
-        System.out.println("List size after adding elements: " + doubleList.size());
-
-        Iterator<Integer> iterator = doubleList.iterator();
+        Iterator<Integer> iterator = doubleLinkedList.iterator();
         System.out.print("First 10 elements: ");
         for (int i = 0; i < 10 && iterator.hasNext(); i++) {
             System.out.print(iterator.next() + " ");
         }
         System.out.println("...");
 
-        System.out.println("Last element in the list: " + doubleList.get(doubleList.size() - 1));
+        System.out.println("Last element in the list: " + doubleLinkedList.get(doubleLinkedList.size() - 1));
 
     }
 
