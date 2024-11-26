@@ -10,10 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Iterator;
 
-/**
- * Hello world!
- *
- */public class App {
+public class App {
 
     public static final String DATASET_SORTEREN_JSON = "dataset_sorteren.json";
 
@@ -58,7 +55,6 @@ import java.util.Iterator;
         IStack<Float> stackOfMixed = new StackOfDynamicArray<>();
 
         stackOfInteger.pushAll(datasetSorting.lijst_willekeurig_10000);
-
         stackOfInteger.push(8);
         stackOfInteger.push(9);
         stackOfInteger.push(10);
