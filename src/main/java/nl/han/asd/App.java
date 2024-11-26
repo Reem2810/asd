@@ -53,7 +53,9 @@ public class App {
         IStack<Integer> stackOfInteger = new StackOfDynamicArray<>();
         IStack<Float> stackOfFloat = new StackOfDynamicArray<>();
         IStack<Float> stackOfMixed = new StackOfDynamicArray<>();
+        IStack<Integer> stackOfIntegerWithNull = new StackOfDynamicArray<>();
 
+        //stackOfIntegerWithNull.pushAll(datasetSorting.lijst_null_3 ); will generate error , null is not allowed in Stack
         stackOfInteger.pushAll(datasetSorting.lijst_willekeurig_10000);
         stackOfInteger.push(8);
         stackOfInteger.push(9);
@@ -72,8 +74,8 @@ public class App {
         System.out.println("testing DoubleLinkedList Marco's data ");
         System.out.println("*******************************");
 
-        DoubleLinkedList<Integer> doubleLinkedListOfInteger = new DoubleLinkedList<>();
-        DoubleLinkedList<Float> doubleLinkedListOfFloat = new DoubleLinkedList<>();
+        IDoubleLinkedList<Integer> doubleLinkedListOfInteger = new DoubleLinkedList<>();
+        IDoubleLinkedList<Float> doubleLinkedListOfFloat = new DoubleLinkedList<>();
         doubleLinkedListOfInteger.addAll(datasetSorting.lijst_willekeurig_10000);
         doubleLinkedListOfFloat.addAll(datasetSorting.lijst_float_8001);
        // doubleLinkedListOfFloat.addAll(datasetSorting.lijst_willekeurig_10000); error due to type mis-match
@@ -95,7 +97,7 @@ public class App {
 
         IDeque<Float> dequeOfFloat = new DequeOfCircularArray<>();
         dequeOfFloat.InsertAllRight(datasetSorting.lijst_float_8001);
-        
+
 
     }
 

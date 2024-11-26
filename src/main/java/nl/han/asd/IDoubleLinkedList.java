@@ -6,6 +6,9 @@ public interface IDoubleLinkedList<T> extends Iterable<T> {
     void add(T element);
     void addFirst(T element);
     void addLast(T element);
+
+    void addAll(T[] elements);
+
     T removeFirst();
     T removeLast();
     T get(int index);

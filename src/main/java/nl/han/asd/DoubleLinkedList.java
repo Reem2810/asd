@@ -62,7 +62,7 @@ public class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
         size++;
         modCount++;
     }
-
+@Override
     public void addAll(T[] elements) {
         if (elements == null) {
             throw new IllegalArgumentException("Input array cannot be null.");
