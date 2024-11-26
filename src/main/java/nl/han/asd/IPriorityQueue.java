@@ -5,4 +5,5 @@ public interface IPriorityQueue<T> {
     T peek();
     T poll();
 
+    void addAll(T[] elements);
 }

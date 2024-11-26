@@ -42,6 +42,18 @@ public class PriorityQueue<T extends Comparable<T>> implements IPriorityQueue<T>
         }
         return root;
     }
+@Override
+    public void addAll(T[] elements) {
+        if (elements == null) {
+            throw new NullPointerException("Input array cannot be null.");
+        }
+        for (T element : elements) {
+            if (element == null) {
+                throw new IllegalArgumentException("Null elements are not allowed in the PriorityQueue.");
+            }
+            add(element);
+        }
+    }
 
     private void heapifyUp(int index) {
         while (index > 0) {

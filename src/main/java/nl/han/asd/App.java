@@ -71,7 +71,7 @@ public class App {
 
 
         System.out.println("*******************************");
-        System.out.println("testing DoubleLinkedList Marco's data ");
+        System.out.println("testing DoubleLinkedList, Marco's data ");
         System.out.println("*******************************");
 
         IDoubleLinkedList<Integer> doubleLinkedListOfInteger = new DoubleLinkedList<>();
@@ -92,11 +92,19 @@ public class App {
 
 
         System.out.println("*******************************");
-        System.out.println("testing Deque Marco's data ");
+        System.out.println("testing Deque, Marco's data ");
         System.out.println("*******************************");
 
         IDeque<Float> dequeOfFloat = new DequeOfCircularArray<>();
         dequeOfFloat.InsertAllRight(datasetSorting.lijst_float_8001);
+
+        System.out.println("*******************************");
+        System.out.println("testing PriorityQueue, Marco's data ");
+        System.out.println("*******************************");
+        IPriorityQueue<Float> priorityQueueOfFloats = new PriorityQueue<>();
+        priorityQueueOfFloats.addAll(datasetSorting.lijst_float_8001);
+        System.out.println("smallest element in the list : " + priorityQueueOfFloats.peek());
+
 
 
     }
