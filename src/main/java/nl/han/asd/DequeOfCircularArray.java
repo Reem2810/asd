@@ -58,7 +58,7 @@ public class DequeOfCircularArray<T> implements IDeque<T> {
             throw new NoSuchElementException("Cannot delete from an empty deque.");
         }
         T element = elements[head];
-        elements[head] = null; // Help garbage collection
+        elements[head] = null;
         head = (head + 1) % elements.length;
         size--;
         return element;
@@ -108,7 +108,7 @@ public class DequeOfCircularArray<T> implements IDeque<T> {
             }
             T[] newElements = (T[]) new Object[newCapacity];
 
-            // Copy elements to the new array starting from head
+       
             for (int i = 0; i < size; i++) {
                 newElements[i] = elements[(head + i) % elements.length];
             }
@@ -121,6 +121,7 @@ public class DequeOfCircularArray<T> implements IDeque<T> {
 
     @Override
     public Iterator<T> iterator() {
+
         return new DequeIterator<>(elements, head, size);
     }
 

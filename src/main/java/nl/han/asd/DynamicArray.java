@@ -13,6 +13,7 @@ public class DynamicArray<E> implements IDynamicArray<E> {
 
     @SuppressWarnings("unchecked")
     public DynamicArray() {
+
         this(DEFAULT_CAPACITY);
     }
 
