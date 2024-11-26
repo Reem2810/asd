@@ -1,4 +1,4 @@
-// DynamicArray.java
+
 package nl.han.asd;
 
 import java.util.Arrays;

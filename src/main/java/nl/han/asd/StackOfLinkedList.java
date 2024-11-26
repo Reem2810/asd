@@ -1,3 +1,5 @@
+
+
 package nl.han.asd;
 
 public class StackOfLinkedList<T> implements IStack<T> {
@@ -41,5 +43,10 @@ public class StackOfLinkedList<T> implements IStack<T> {
     @Override
     public int size() {
         return list.getSize();
+    }
+
+    @Override
+    public void pushAll(T[] newElements) {
+
     }
 }

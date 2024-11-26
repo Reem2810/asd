@@ -1,4 +1,4 @@
-// DequeOfCircularArray.java
+// DequeOfCircularArray is the choice for implementing a Deque the other implementation is just for curiosity
 package nl.han.asd;
 
 import java.util.Iterator;

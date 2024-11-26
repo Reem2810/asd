@@ -1,4 +1,4 @@
-// DynamicArrayIterator.java
+
 package nl.han.asd;
 
 import java.util.ConcurrentModificationException;

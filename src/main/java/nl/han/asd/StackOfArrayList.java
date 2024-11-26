@@ -63,6 +63,11 @@ public class StackOfArrayList<T> implements IStack<T> {
     }
 
     @Override
+    public void pushAll(T[] newElements) {
+
+    }
+
+    @Override
     public String toString() {
         return list.toString();
     }

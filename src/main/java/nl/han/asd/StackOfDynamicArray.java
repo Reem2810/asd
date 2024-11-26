@@ -1,3 +1,4 @@
+//The Choice for implementing a Stack
 package nl.han.asd;
 
 import java.util.NoSuchElementException;
@@ -33,7 +34,18 @@ public class StackOfDynamicArray<T> implements IStack<T> {
         dynamicArray.remove(dynamicArray.size() - 1);
         return value;
     }
-
+    @Override
+    public void pushAll(T[] values) {
+        if (values == null) {
+            throw new IllegalArgumentException("Input array cannot be null.");
+        }
+        for (T value : values) {
+            if (value == null) {
+                throw new IllegalArgumentException("Null values are not allowed in the stack.");
+            }
+            dynamicArray.add(value);
+        }
+    }
     @Override
     public T peek() {
         if (isEmpty()) {

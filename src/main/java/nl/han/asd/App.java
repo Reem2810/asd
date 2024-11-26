@@ -30,48 +30,46 @@ import java.util.Iterator;
         System.out.println("testing DynamicArray against Marco's data ");
         System.out.println("*******************************");
 
-        DynamicArray<Integer> dynamicIntegerArray = new DynamicArray<>(1);
-        DynamicArray<Float> dynamicFloatArray = new DynamicArray<>(1);
-        DynamicArray<Float> dynamicMixedArray = new DynamicArray<>(1);
+        IDynamicArray<Integer> dynamicIntegerArray = new DynamicArray<>(1);
+        IDynamicArray<Float> dynamicFloatArray = new DynamicArray<>(1);
+        IDynamicArray<Float> dynamicMixedArray = new DynamicArray<>(1);
 
         dynamicIntegerArray.addAll(datasetSorting.lijst_null_1);
         dynamicFloatArray.addAll(datasetSorting.lijst_float_8001);
-      // dynamicMixedArray.addAll(datasetSorting.lijst_onsorteerbaar_3);
+      // dynamicMixedArray.addAll(datasetSorting.lijst_onsorteerbaar_3); //will give"type" error
 
         System.out.println(" Test contains for not existed element: " + dynamicIntegerArray.contains(4));
         dynamicIntegerArray.add(4); // Perform the add operation
         System.out.println("Test contains after adding the element: "+ dynamicIntegerArray.contains(4));
         System.out.println(" Size of dynamic array " + dynamicIntegerArray.size());
         System.out.println(dynamicIntegerArray.toString());
-
-        //testing clear in dynmaic array
-//    int elementsPerLine = 10;
-//               for (int i = 0; i < dynamicFloatArray.size(); i++) {
-//                  System.out.print(dynamicFloatArray.get(i) + " ");
-//                   if ((i + 1) % elementsPerLine == 0) {
-//                    System.out.println();
-//                   }
-//                }
         System.out.println();
         System.out.println("size of dynamic array before clear is: " + dynamicFloatArray.size());
         dynamicFloatArray.clear();
         System.out.println("size of dynamic array after clear is: " + dynamicFloatArray.size());
 
 
+
         System.out.println("*******************************");
         System.out.println("testing Stack against Marco's data ");
         System.out.println("*******************************");
-        IStack<Integer> stack = new StackOfDynamicArray<>();
+        IStack<Integer> stackOfInteger = new StackOfDynamicArray<>();
+        IStack<Float> stackOfFloat = new StackOfDynamicArray<>();
+        IStack<Float> stackOfMixed = new StackOfDynamicArray<>();
 
-        stack.push(8);
-        stack.push(9);
-        stack.push(10);
-        System.out.println("Top element (peek): " + stack.peek());
-        stack.pop();
-        System.out.println("Top element (peek): " + stack.peek());
-        System.out.println("Size of stack: " + stack.size());
-        System.out.println("Top element (pop): " + stack.pop());
-        System.out.println("Size of stack: " + stack.size());
+        stackOfInteger.pushAll(datasetSorting.lijst_willekeurig_10000);
+
+        stackOfInteger.push(8);
+        stackOfInteger.push(9);
+        stackOfInteger.push(10);
+        System.out.println("Top element (peek): " + stackOfInteger.peek());
+        stackOfInteger.pop();
+        System.out.println("Top element (peek): " + stackOfInteger.peek());
+        System.out.println("Size of stack: " + stackOfInteger.size());
+        System.out.println("Top element (pop): " + stackOfInteger.pop());
+        System.out.println("Size of stack: " + stackOfInteger.size());
+
+
 
 
         System.out.println("*******************************");

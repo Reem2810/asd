@@ -11,4 +11,5 @@ public interface IStack <T>{
     boolean isEmpty();
 
     int size();
+    void pushAll(T[] newElements);
 }
