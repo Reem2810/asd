@@ -107,11 +107,13 @@ public class PriorityQueue<T extends Comparable<T>> implements IPriorityQueue<T>
     }
 
     public void clear() {
+
         list.clear();
     }
 
     @Override
     public Iterator<T> iterator() {
+
         return list.iterator();
     }
 

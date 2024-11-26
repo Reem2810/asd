@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class DequeOfCircularArray<T> implements IDeque<T> {
-    private static final int DEFAULT_CAPACITY = 8;
+    private static final int DEFAULT_CAPACITY = 10;
     private T[] elements;
     private int head;
     private int tail;
@@ -95,6 +95,7 @@ public class DequeOfCircularArray<T> implements IDeque<T> {
 
     @Override
     public boolean isEmpty() {
+
         return size == 0;
     }
 
